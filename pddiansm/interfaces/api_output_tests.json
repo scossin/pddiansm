@@ -1,0 +1,79 @@
+{
+    "pddis": [
+        {
+            "drug_id_1": 1,
+            "substance1": "azithromycine",
+            "ith_substance_1": 0,
+            "drug_id_2": 2,
+            "substance2": "opium",
+            "ith_substance_2": 1,
+            "pddi": {
+                "pddi_id": "macrolides (sauf spiramycine);colchicine",
+                "main_drug": "macrolides (sauf spiramycine)",
+                "between_main_and_plus_drug": "(azithromycine, clarithromycine, erythromycine, josamycine, midecamycine, roxithromycine, telithromycine)",
+                "plus_drug": "colchicine",
+                "severity_levels": [
+                    {
+                        "level": "CONTRE-INDICATION",
+                        "info": ""
+                    }
+                ],
+                "interaction_mechanism": "Augmentation des effets indésirables de la colchicine, aux \nconséquences potentiellement fatales.",
+                "description": "CONTRE-INDICATIONAugmentation des effets indésirables de la colchicine, aux \n\nconséquences potentiellement fatales."
+            }
+        }
+    ],
+    "thesaurus": {
+        "thesaurus_version": "092019",
+        "description": "Version de septembre 2019"
+    },
+    "request": {
+        "drugs": [
+            {
+                "id": 1,
+                "substances": [
+                    {
+                        "substance": "azithromycine",
+                        "dosage": {
+                            "amount": 500,
+                            "unit": "mg"
+                        }
+                    }
+                ],
+                "route": "orale",
+                "posologie": ""
+            },
+            {
+                "id": 2,
+                "substances": [
+                    {
+                        "substance": "opium",
+                        "dosage": {
+                            "amount": 12,
+                            "unit": "mg"
+                        }
+                    },
+                    {
+                        "substance": "colchicine",
+                        "dosage": {
+                            "amount": 1,
+                            "unit": "mg"
+                        }
+                    },
+                    {
+                        "substance": "métilsulfate de tiémonium",
+                        "dosage": {
+                            "amount": 50,
+                            "unit": "mg"
+                        }
+                    }
+                ],
+                "route": "orale",
+                "posologie": ""
+            }
+        ],
+        "patient": {
+            "conditions": []
+        }
+    }
+}

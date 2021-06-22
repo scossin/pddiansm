@@ -1,0 +1,49 @@
+{
+    "drugs": [
+        {
+            "id": 1,
+            "substances": [
+                {
+                    "substance": "azithromycine",
+                    "dosage": {
+                        "amount": 500,
+                        "unit": "mg"
+                    }
+                }
+            ],
+            "route": "orale",
+            "posologie": ""
+        },
+        {
+            "id": 2,
+            "substances": [
+                {
+                    "substance": "opium",
+                    "dosage": {
+                        "amount": 12.5,
+                        "unit": "mg"
+                    }
+                },
+                {
+                    "substance": "colchicine",
+                    "dosage": {
+                        "amount": 1,
+                        "unit": "mg"
+                    }
+                },
+                {
+                    "substance": "métilsulfate de tiémonium",
+                    "dosage": {
+                        "amount": 50,
+                        "unit": "mg"
+                    }
+                }
+            ],
+            "route": "orale",
+            "posologie": ""
+        }
+    ],
+    "patient": {
+        "conditions": []
+    }
+}
