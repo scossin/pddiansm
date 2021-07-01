@@ -1,6 +1,6 @@
 from typing import List
 
-from pddiansm.pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.interfaces.interfaces_pddi import PDDI
 
 
 class PDDIdetector:

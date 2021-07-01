@@ -1,5 +1,5 @@
-from pddiansm.pddiansm.interfaces.interfaces_input import Drug
-from pddiansm.pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.interfaces.interfaces_input import Drug
+from pddiansm.interfaces.interfaces_pddi import PDDI
 
 
 class PDDIdrugsDetected:

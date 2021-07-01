@@ -1,10 +1,10 @@
 from typing import List, Union
 
-from pddiansm.pddiansm.detector.PDDIdetector import PDDIdetector
-from pddiansm.pddiansm.interfaces.interfaces_pddi import PDDI, SubstanceThesaurus, ClassThesaurus
-from pddiansm.pddiansm.thesaurus.substances import Substances
-from pddiansm.pddiansm.thesaurus.thesaurus import Thesaurus
-from pddiansm.pddiansm.thesaurus.versions import THESAURUS_VERSIONS
+from pddiansm.detector.PDDIdetector import PDDIdetector
+from pddiansm.interfaces.interfaces_pddi import PDDI, SubstanceThesaurus, ClassThesaurus
+from pddiansm.thesaurus.substances import Substances
+from pddiansm.thesaurus.thesaurus import Thesaurus
+from pddiansm.thesaurus.versions import THESAURUS_VERSIONS
 
 
 class PDDIansmDetector(PDDIdetector):

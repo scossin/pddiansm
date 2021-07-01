@@ -4,10 +4,10 @@ from typing import List, Union
 
 import pydantic
 
-from pddiansm.pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
-from pddiansm.pddiansm.interfaces.interfaces_pddi import SubstanceThesaurus, ClassThesaurus, SubstanceClasses
-from pddiansm.pddiansm.thesaurus.versions import THESAURUS_VERSIONS, Version
-from pddiansm.pddiansm.utils.normalize_string import normalize_string
+from pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
+from pddiansm.interfaces.interfaces_pddi import SubstanceThesaurus, ClassThesaurus, SubstanceClasses
+from pddiansm.thesaurus.versions import THESAURUS_VERSIONS, Version
+from pddiansm.utils.normalize_string import normalize_string
 
 
 class Substances:

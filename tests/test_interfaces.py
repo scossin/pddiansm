@@ -5,9 +5,9 @@ from typing import List
 import pydantic
 from pydantic import ValidationError
 
-from pddiansm.pddiansm.interfaces.interfaces_input import PatientDrugs
-from pddiansm.pddiansm.interfaces.interfaces_output import APIoutput
-from pddiansm.pddiansm.interfaces.interfaces_pddi import PDDI, SubstanceThesaurus
+from pddiansm.interfaces.interfaces_input import PatientDrugs
+from pddiansm.interfaces.interfaces_output import APIoutput
+from pddiansm.interfaces.interfaces_pddi import PDDI, SubstanceThesaurus
 
 
 def get_path(filename: str) -> str:

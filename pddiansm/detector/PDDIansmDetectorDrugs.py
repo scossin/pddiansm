@@ -1,10 +1,10 @@
 from typing import List
 
-from pddiansm.pddiansm.detector.PDDIansmDetector import PDDIansmDetector
-from pddiansm.pddiansm.detector.PDDIdrugsDetected import PDDIdrugsDetected
-from pddiansm.pddiansm.interfaces.interfaces_input import PatientDrugs, Drug
-from pddiansm.pddiansm.interfaces.interfaces_pddi import PDDI
-from pddiansm.pddiansm.thesaurus.versions import THESAURUS_VERSIONS
+from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
+from pddiansm.detector.PDDIdrugsDetected import PDDIdrugsDetected
+from pddiansm.interfaces.interfaces_input import PatientDrugs, Drug
+from pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.thesaurus.versions import THESAURUS_VERSIONS
 
 
 class PDDIansmDetectorDrugs(PDDIansmDetector):

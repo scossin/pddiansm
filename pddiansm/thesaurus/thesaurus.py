@@ -3,10 +3,10 @@ from typing import List
 import os
 import pydantic
 
-from pddiansm.pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
-from pddiansm.pddiansm.interfaces.interfaces_pddi import PDDI
-from pddiansm.pddiansm.thesaurus.versions import Version, THESAURUS_VERSIONS
-from pddiansm.pddiansm.utils.normalize_string import normalize_string
+from pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
+from pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.thesaurus.versions import Version, THESAURUS_VERSIONS
+from pddiansm.utils.normalize_string import normalize_string
 
 
 class Thesaurus:

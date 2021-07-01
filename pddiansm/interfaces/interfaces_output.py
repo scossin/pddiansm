@@ -2,8 +2,8 @@ from typing import List
 
 from pydantic import BaseModel
 
-from pddiansm.pddiansm.interfaces.interfaces_input import PatientDrugs
-from pddiansm.pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.interfaces.interfaces_input import PatientDrugs
+from pddiansm.interfaces.interfaces_pddi import PDDI
 
 
 class PDDIdetected(BaseModel):

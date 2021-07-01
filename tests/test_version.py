@@ -1,8 +1,8 @@
 import unittest
 
-from pddiansm.pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
-from pddiansm.pddiansm.thesaurus.thesaurus import Thesaurus
-from pddiansm.pddiansm.thesaurus.versions import Version
+from pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
+from pddiansm.thesaurus.thesaurus import Thesaurus
+from pddiansm.thesaurus.versions import Version
 
 
 class MyTestCase(unittest.TestCase):

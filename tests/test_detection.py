@@ -3,12 +3,12 @@ from typing import List
 
 import pydantic
 
-from pddiansm.pddiansm.interfaces.interfaces_input import PatientDrugs
-from pddiansm.pddiansm.detector.PDDIansmDetector import PDDIansmDetector
-from pddiansm.pddiansm.detector.PDDIansmDetectorDrugs import PDDIansmDetectorDrugs
-from pddiansm.pddiansm.detector.PDDIdrugsDetected import PDDIdrugsDetected
-from pddiansm.pddiansm.thesaurus.versions import THESAURUS_VERSIONS
-from pddiansm.tests.test_interfaces import get_path
+from pddiansm.interfaces.interfaces_input import PatientDrugs
+from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
+from pddiansm.detector.PDDIansmDetectorDrugs import PDDIansmDetectorDrugs
+from pddiansm.detector.PDDIdrugsDetected import PDDIdrugsDetected
+from pddiansm.thesaurus.versions import THESAURUS_VERSIONS
+from tests.test_interfaces import get_path
 
 
 class MyTestCase(unittest.TestCase):
