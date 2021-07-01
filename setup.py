@@ -17,5 +17,6 @@ setup(
     author='Sebastien Cossin',
     url='https://github.com/scossin/pddiansm',
     license=license,
-    packages=find_packages(exclude=('tests'))
+    packages=find_packages(exclude=('tests')),
+    package_data={'pddiansm': ['data/*.tsv', 'data/*.json']},
 )
