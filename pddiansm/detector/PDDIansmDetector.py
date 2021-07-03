@@ -68,11 +68,9 @@ class PDDIansmDetector(PDDIdetector):
         dict_interact_with[molecule_or_class2] = pddi
 
     def _search_pddi_in_index(self, molecule_or_class1: str, molecule_or_class2: str) -> PDDI:
-        if molecule_or_class1 in self.indexed_entries:
-            moc1_interact_with = self.indexed_entries[molecule_or_class1]
-            if molecule_or_class2 in moc1_interact_with:
-                pddi = moc1_interact_with[molecule_or_class2]
-                return pddi
+        moc1_interact_with = self.indexed_entries.get(molecule_or_class1, {})
+        pddi = moc1_interact_with.get(molecule_or_class2, None)
+        return pddi
 
     @staticmethod
     def __get_list_of_substance_and_classes(moc: Union[SubstanceThesaurus, ClassThesaurus]) -> List[str]:

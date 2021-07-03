@@ -15,6 +15,8 @@ class PDDI(BaseModel):
     severity_levels: List[SeverityLevel]
     interaction_mechanism: str
     description: str
+    def __str__(self):
+        return f"{self.main_drug} can interact with {self.plus_drug}"
 
 
 class SubstanceThesaurus(BaseModel):
