@@ -1,5 +1,4 @@
 import os
-import pathlib
 import importlib.resources as pkg_resources
 from typing import List
 
@@ -12,11 +11,10 @@ class ThesaurusFilesBuilder:
 
     @classmethod
     def thesauri_files(cls) -> List[ThesaurusFiles]:
-        package = pkg_resources.path("pddiansm", "data")
-        with package as path:
-            path_thesauri = path
+        package_path = pkg_resources.path("pddiansm", "data")
+        with package_path as path:
             thesauri_files = []
-            for root, subdirs, files in os.walk(path_thesauri):
+            for root, subdirs, files in os.walk(path):
                 json_files = list(filter(cls._is_a_json_file, files))
                 new_thesaurus_files = cls.__create_thesaurus_files(root, json_files)
                 thesauri_files.append(new_thesaurus_files)
