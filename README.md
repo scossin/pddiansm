@@ -1,10 +1,13 @@
 # PDDIansm
-Scripts to detect Potential Drug Drug Interactions (PDDI) according to the French Agency for the Safety of Health Products (ANSM)
+Scripts to detect Potential Drug Drug Interactions (PDDI) according to the French Agency for the Safety of Health Products (ANSM) guidelines. 
 
 ## Examples
 
 ### PDDI between two substances:
 ```python
+from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
+from pddiansm.thesaurus.Thesauri import Thesauri
+
 thesaurus = Thesauri().get_thesaurus("2019_09") # thesauri.print_available_thesaurus_version()
 pddi_detector = PDDIansmDetector(thesaurus)
 substance1 = "domperidone"
