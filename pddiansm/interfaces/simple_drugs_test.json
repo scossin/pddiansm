@@ -1,0 +1,26 @@
+{
+    "simpleDrugs": [
+        {
+            "id": 1,
+            "substances": [
+                {
+                    "substance": "azithromycine"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "substances": [
+                {
+                    "substance": "opium"
+                },
+                {
+                    "substance": "colchicine"
+                },
+                {
+                    "substance": "métilsulfate de tiémonium"
+                }
+            ]
+        }
+    ]
+}

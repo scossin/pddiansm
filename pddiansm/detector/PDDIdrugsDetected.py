@@ -1,9 +1,9 @@
-from pddiansm.interfaces.interfaces_input import Drug
+from pddiansm.interfaces.interfaces_input import SimpleDrug
 from pddiansm.interfaces.interfaces_pddi import PDDI
 
 
 class PDDIdrugsDetected:
-    def __init__(self, pddi: PDDI, drug1: Drug, drug2: Drug, i_1: int, i_2: int):
+    def __init__(self, pddi: PDDI, drug1: SimpleDrug, drug2: SimpleDrug, i_1: int, i_2: int):
         """
         A pddi detected between one substance of drug1 and another substance of drug2
         :param pddi: a potential drug drug interaction

@@ -66,7 +66,7 @@ class MyTestCase(unittest.TestCase):
         thesaurus_version = THESAURUS_VERSIONS[0]
         pddi_detector = PDDIansmDetectorDrugs(thesaurus_version)
         # load a patient_drugs object
-        path = get_path("../pddiansm/interfaces/patient_drugs_tests.json")
+        path = get_path("../pddiansm/interfaces/simple_drugs_test.json")
         patient_drugs = pydantic.parse_file_as(PatientDrugs, path)
         # PDDIs detection
         pddis: List[PDDIdrugsDetected] = pddi_detector.detect_pddi_in_patient_drugs(patient_drugs)
@@ -77,7 +77,7 @@ class MyTestCase(unittest.TestCase):
         thesaurus_version = THESAURUS_VERSIONS[0]
         pddi_detector = PDDIansmDetectorDrugs(thesaurus_version)
         # load a patient_drugs object
-        path = get_path("../pddiansm/interfaces/patient_drugs_tests.json")
+        path = get_path("../pddiansm/interfaces/simple_drugs_test.json")
         patient_drugs: PatientDrugs = pydantic.parse_file_as(PatientDrugs, path)
         # change the first substance
         patient_drugs.drugs[0].substances[0].substance = "opium"

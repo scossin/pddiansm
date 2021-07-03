@@ -2,7 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-from pddiansm.interfaces.interfaces_input import PatientDrugs
+from pddiansm.interfaces.interfaces_input import SimpleDrug
 from pddiansm.interfaces.interfaces_pddi import PDDI
 
 
@@ -16,12 +16,12 @@ class PDDIdetected(BaseModel):
     pddi: PDDI
 
 
-class Thesaurus(BaseModel):
+class ThesaurusInfo(BaseModel):
     thesaurus_version: str
     description: str
 
 
 class APIoutput(BaseModel):
     pddis: List[PDDIdetected]
-    thesaurus: Thesaurus
-    request: PatientDrugs
+    thesaurus: ThesaurusInfo
+    request: List[SimpleDrug]
