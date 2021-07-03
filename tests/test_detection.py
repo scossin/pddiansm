@@ -26,6 +26,13 @@ class MyTestCase(unittest.TestCase):
         pddis = pddi_detector.detect_pddi(substance1, classe1)
         self.assertTrue(len(pddis) == 1)
 
+    def test_detection_when_substance_is_unknown(self):
+        pddi_detector = get_pddi_detector_2019()
+        substance1 = "abatacept"
+        substance2 = "a molecule that doesn't exist"
+        pddis = pddi_detector.detect_pddi(substance1, substance2)
+        self.assertTrue(len(pddis) == 0)
+
     def test_detection_classe_classe(self):
         pddi_detector = get_pddi_detector_2019()
         classe1 = "Minéralocorticoïdes"
