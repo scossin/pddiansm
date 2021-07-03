@@ -4,11 +4,12 @@ from typing import List
 
 from pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
 from pddiansm.thesaurus.ThesaurusFiles import ThesaurusFiles
+from pddiansm.utils.Singleton import Singleton
 
 
-class ThesauriFiles:
+class ThesauriFiles(metaclass=Singleton):
     def __init__(self):
-        self.thesauri_files: List[ThesaurusFiles] = self.load_thesauri_files()
+        self.thesauri_files: List[ThesaurusFiles] = self.__load_thesauri_files()
 
     def get_thesauri_files(self) -> List[ThesaurusFiles]:
         return self.thesauri_files
@@ -28,7 +29,7 @@ class ThesauriFiles:
         [print(version) for version in self.get_available_thesaurus_version()]
 
     @classmethod
-    def load_thesauri_files(cls) -> List[ThesaurusFiles]:
+    def __load_thesauri_files(cls) -> List[ThesaurusFiles]:
         package_path = pkg_resources.path("pddiansm", "data")
         with package_path as path:
             thesauri_files = []

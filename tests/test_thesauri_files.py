@@ -10,6 +10,11 @@ class MyTestCase(unittest.TestCase):
         thesauri_files = ThesauriFiles()
         self.assertEqual(len(thesauri_files.get_thesauri_files()), 1)
 
+    def test_singleton(self):
+        thesauri_files1 = ThesauriFiles()
+        thesauri_files2 = ThesauriFiles()
+        self.assertEqual(thesauri_files1, thesauri_files2)
+        
     def test_list_versions(self):
         thesauri_files = ThesauriFiles()
         thesaurus_versions = thesauri_files.get_available_thesaurus_version()
