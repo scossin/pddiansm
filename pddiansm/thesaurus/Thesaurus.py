@@ -8,6 +8,12 @@ from pddiansm.utils.normalize_string import normalize_string
 
 
 class Thesaurus:
+    """
+    This class stores the content of a thesaurus:
+        - PDDIs: list of potential drug drug interactions
+        - substance_thesaurus: list of substances and their classes
+    """
+
     def __init__(self, thesaurus_files: ThesaurusFiles):
         self.thesaurus_files = thesaurus_files
 
@@ -16,7 +22,17 @@ class Thesaurus:
 
         substance_file = thesaurus_files.get_substance_file_path()
         self.substances_thesaurus: List[SubstanceThesaurus] = Thesaurus.load_substances(substance_file)
-        self.substance_classes = self.__create_dict_substances_classes()
+        self.substances_and_classes = self.__create_dict_substances_classes(self.substances_thesaurus)
+
+    def search_molecule_or_class(self, molecule_or_class: str) -> Union[SubstanceThesaurus, ClassThesaurus]:
+        substances_classes = self.substances_and_classes
+        molecule_or_class = normalize_string(molecule_or_class)
+        if molecule_or_class in substances_classes.hashmap_substances:
+            return substances_classes.hashmap_substances[molecule_or_class]
+        elif molecule_or_class in substances_classes.hashmap_drug_classes:
+            return substances_classes.hashmap_drug_classes[molecule_or_class]
+        else:
+            return None
 
     @classmethod
     def load_pddis(cls, thesaurus_file: str) -> List[PDDI]:
@@ -30,12 +46,21 @@ class Thesaurus:
         cls.__normalize_substance_classe(substances_thesaurus)
         return substances_thesaurus
 
-    def __create_dict_substances_classes(self):
+    @staticmethod
+    def __create_dict_substances_classes(substances_thesaurus) -> SubstanceClasses:
         dict_substances_classes = {substance_classes.substance: substance_classes for substance_classes
-                                   in self.substances_thesaurus}
-        classes = Thesaurus.__get_unique_classes(self.substances_thesaurus)
-        substance_classes = SubstanceClasses(hashmap_substances=dict_substances_classes, classes=classes)
-        return substance_classes
+                                   in substances_thesaurus}
+        drug_classes = Thesaurus.__get_unique_classes(substances_thesaurus)
+
+        dict_drug_classes = {drug_class: ClassThesaurus(drug_class=drug_class,
+                                                        substances=[]) for drug_class in drug_classes}
+        # why substances=[] if the class contains molecules?
+        # when we check PDDI with a class, we don't want to check PDDI for every individual substances that the class contains
+        # so we let substances empty to detect PDDI only at the class level
+
+        substances_and_classes = SubstanceClasses(hashmap_substances=dict_substances_classes,
+                                                  hashmap_drug_classes=dict_drug_classes)
+        return substances_and_classes
 
     @classmethod
     def __normalize_pddis(cls, pddis):
@@ -61,16 +86,3 @@ class Thesaurus:
         flat_classes_list = [classe for sublist in classes_list for classe in sublist]
         unique_classes = set(flat_classes_list)
         return unique_classes
-
-    def search_molecule_or_class(self, molecule_or_class) -> Union[SubstanceThesaurus, ClassThesaurus]:
-        substances_classes = self.substance_classes
-        molecule_or_class = normalize_string(molecule_or_class)
-        if molecule_or_class in substances_classes.hashmap_substances:
-            return substances_classes.hashmap_substances[molecule_or_class]
-        elif molecule_or_class in substances_classes.classes:
-            return ClassThesaurus(drug_class=molecule_or_class,
-                                  substances=[]) # why is it empty when the class contains molecules?
-        # when we check PDDI with a class, we don't want to check PDDI for every individual substances that the class contains
-        # so we let substances empty to detect PDDI only at the class level
-        else:
-            return None
