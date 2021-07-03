@@ -2,9 +2,10 @@ from typing import List
 
 from pddiansm.thesaurus.ThesauriFiles import ThesauriFiles
 from pddiansm.thesaurus.Thesaurus import Thesaurus
+from pddiansm.utils.Singleton import Singleton
 
 
-class Thesauri:
+class Thesauri(metaclass=Singleton):
     """
     This class stores all thesaurus instances
     """

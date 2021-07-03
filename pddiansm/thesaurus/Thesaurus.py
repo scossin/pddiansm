@@ -43,14 +43,14 @@ class Thesaurus:
     @classmethod
     def load_substances(cls, substance_file: str) -> List[SubstanceThesaurus]:
         substances_thesaurus = pydantic.parse_file_as(List[SubstanceThesaurus], substance_file)
-        cls.__normalize_substance_classe(substances_thesaurus)
+        cls.__normalize_substance_thesaurus(substances_thesaurus)
         return substances_thesaurus
 
     @staticmethod
     def __create_dict_substances_classes(substances_thesaurus) -> SubstanceClasses:
         dict_substances_classes = {substance_classes.substance: substance_classes for substance_classes
                                    in substances_thesaurus}
-        drug_classes = Thesaurus.__get_unique_classes(substances_thesaurus)
+        drug_classes = Thesaurus.__get_unique_drug_classes(substances_thesaurus)
 
         dict_drug_classes = {drug_class: ClassThesaurus(drug_class=drug_class,
                                                         substances=[]) for drug_class in drug_classes}
@@ -69,7 +69,7 @@ class Thesaurus:
             pddi.main_drug = normalize_string(pddi.main_drug)
 
     @classmethod
-    def __normalize_substance_classe(cls, substances_thesaurus: List[SubstanceThesaurus]):
+    def __normalize_substance_thesaurus(cls, substances_thesaurus: List[SubstanceThesaurus]):
         for substance_classes in substances_thesaurus:
             substance_classes.substance = normalize_string(substance_classes.substance)
             substance_classes.drug_classes = list(map(normalize_string, substance_classes.drug_classes))
@@ -81,7 +81,7 @@ class Thesaurus:
         return unique_substances
 
     @classmethod
-    def __get_unique_classes(cls, substances: List[SubstanceThesaurus]):
+    def __get_unique_drug_classes(cls, substances: List[SubstanceThesaurus]):
         classes_list = [substance.drug_classes for substance in substances]
         flat_classes_list = [classe for sublist in classes_list for classe in sublist]
         unique_classes = set(flat_classes_list)

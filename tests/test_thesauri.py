@@ -11,6 +11,11 @@ class MyTestCase(unittest.TestCase):
         thesaurus = thesauri.get_thesaurus(thesaurus_version)
         self.assertIsInstance(thesaurus, Thesaurus)
 
+    def test_singleton(self):
+        thesauri1 = Thesauri()
+        thesauri2 = Thesauri()
+        self.assertEqual(thesauri1, thesauri2)
+
 
 if __name__ == '__main__':
     unittest.main()
