@@ -18,10 +18,8 @@ class PDDIdetected(BaseModel):
 
 class ThesaurusInfo(BaseModel):
     thesaurus_version: str
-    description: str
 
 
 class APIoutput(BaseModel):
     pddis: List[PDDIdetected]
     thesaurus: ThesaurusInfo
-    request: List[SimpleDrug]

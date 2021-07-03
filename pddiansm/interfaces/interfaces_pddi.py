@@ -29,4 +29,4 @@ class ClassThesaurus(BaseModel):
 
 class SubstanceClasses(BaseModel):
     hashmap_substances: Dict[str, SubstanceThesaurus]  # map substance to SubstanceThesaurus
-    classes: Set[str]
+    hashmap_drug_classes: Dict[str, ClassThesaurus]  # map classes to ClassThesaurus
