@@ -16,7 +16,7 @@ class ThesauriFiles:
     def get_thesaurus_files(self, thesaurus_version: str):
         thesaurus_files_list = [thesaurus_files for thesaurus_files in self.thesauri_files
                                 if thesaurus_files.thesaurus_version == thesaurus_version]
-        if len(thesaurus_files_list == 0):
+        if len(thesaurus_files_list) == 0:
             raise ThesaurusVersionNotFound(f"{thesaurus_version} was not found")
         return thesaurus_files_list[0]
 

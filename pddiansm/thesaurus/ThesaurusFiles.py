@@ -23,8 +23,8 @@ class ThesaurusFiles:
     @classmethod
     def __get_last_folder_name_before_JSON_folder(cls, root_folder):
         folders = root_folder.split("/")
-        nth_folder_before_JSON = len(folders) - 1 # -1 because last is JSON_folder
-        return folders[nth_folder_before_JSON - 1] # -1 because list is 0 indexed
+        last_folder = len(folders)
+        return folders[last_folder - 1]  # -1 because list is 0 indexed
 
     def add_json_file(self, json_file):
         if self._is_a_substance_file(json_file):
