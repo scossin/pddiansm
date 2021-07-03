@@ -2,7 +2,6 @@ from typing import List
 
 from pydantic import BaseModel
 
-from pddiansm.interfaces.interfaces_input import SimpleDrug
 from pddiansm.interfaces.interfaces_pddi import PDDI
 
 
