@@ -6,10 +6,10 @@ import importlib.resources as pkg_resources
 import pydantic
 from pydantic import ValidationError
 
-from pddiansm.interfaces.interfaces_input import PatientDrugs
+from pddiansm.interfaces.interfaces_input import SimpleDrug
 from pddiansm.interfaces.interfaces_output import APIoutput
 from pddiansm.interfaces.interfaces_pddi import PDDI, SubstanceThesaurus
-from pddiansm.thesaurus.ThesaurusFilesBuilder import ThesaurusFilesBuilder
+from pddiansm.thesaurus.ThesauriFiles import ThesauriFiles
 
 
 def get_path(filename: str) -> str:
@@ -20,7 +20,7 @@ def get_path(filename: str) -> str:
 class MyTestCase(unittest.TestCase):
 
     def test_load_thesauri_files(self):
-        thesauri_files = ThesaurusFilesBuilder().thesauri_files()
+        thesauri_files = ThesauriFiles().thesauri_files
         self.assertEqual(len(thesauri_files), 1)
 
     def test_interface_pddi(self):
@@ -39,22 +39,23 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual(pddi0.description, "Association DECONSEILLEEMajoration de l’immunodépression.")
 
     def test_interface_substance(self):
-        filename = "data/thesauri/2019_09/index_des_substances_09_2019.json"
-        data = pkgutil.get_data("pddiansm", filename)
-        substances = pydantic.parse_raw_as(List[SubstanceThesaurus], data)
-        substance1 = substances[1]
-        self.assertEqual(substance1.substance, "abciximab (c 7e3b fab)")
-        self.assertEqual(substance1.drug_classes, ["antiagrégants plaquettaires", "autres médicaments agissant sur l'hémostase"])
+        package_path = pkg_resources.path("pddiansm", "data")
+        with package_path as path:
+            filename = str(path) + "/thesauri/2019_09/index_des_substances_09_2019.json"
+            substances = pydantic.parse_file_as(List[SubstanceThesaurus], filename)
+            substance1 = substances[1]
+            self.assertEqual(substance1.substance, "abciximab (c 7e3b fab)")
+            self.assertEqual(substance1.drug_classes, ["antiagrégants plaquettaires", "autres médicaments agissant sur l'hémostase"])
 
     def test_interface_drug(self):
         path = get_path("../pddiansm/interfaces/simple_drugs_test.json")
         try:
-            patient_drugs = pydantic.parse_file_as(PatientDrugs, path)
+            simple_drugs = pydantic.parse_file_as(List[SimpleDrug], path)
         except ValidationError as e:
             self.fail(e)
 
     def test_interface_output(self):
-        path = get_path("../pddiansm/interfaces/api_output_tests.json")
+        path = get_path("../pddiansm/interfaces/pddis_detected.json")
         try:
             api_output = pydantic.parse_file_as(APIoutput, path)
         except ValidationError as e:
