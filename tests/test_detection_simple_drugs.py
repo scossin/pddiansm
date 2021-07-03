@@ -4,7 +4,7 @@ from typing import List
 import pydantic
 
 from pddiansm.detector.PDDIansmDetectorSimpleDrugs import PDDIansmDetectorSimpleDrugs
-from pddiansm.detector.PDDIdrugsDetected import PDDIdrugsDetected
+from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
 from pddiansm.interfaces.interfaces_input import SimpleDrug
 from pddiansm.thesaurus.Thesauri import Thesauri
 from tests.test_interfaces import get_path
@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
         path = get_path("../pddiansm/interfaces/simple_drugs_test.json")
         patient_drugs = pydantic.parse_file_as(List[SimpleDrug], path)
         # PDDIs detection
-        pddis: List[PDDIdrugsDetected] = pddi_detector.detect_pddi_simple_drugs(patient_drugs)
+        pddis: List[PDDIsimpleDrugsDetected] = pddi_detector.detect_pddi_simple_drugs(patient_drugs)
         self.assertEqual(len(pddis), 1)
 
     def test_detection_patient_drugs_no_pddi(self):
@@ -36,7 +36,7 @@ class MyTestCase(unittest.TestCase):
         # change the first substance
         simple_drugs[0].substances[0].substance = "opium"
         # PDDIs detection
-        pddis: List[PDDIdrugsDetected] = pddi_detector.detect_pddi_simple_drugs(simple_drugs)
+        pddis: List[PDDIsimpleDrugsDetected] = pddi_detector.detect_pddi_simple_drugs(simple_drugs)
         self.assertEqual(len(pddis), 0)
 
 
