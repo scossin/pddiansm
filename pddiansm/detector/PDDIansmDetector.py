@@ -2,20 +2,18 @@ from typing import List, Union
 
 from pddiansm.detector.PDDIdetector import PDDIdetector
 from pddiansm.interfaces.interfaces_pddi import PDDI, SubstanceThesaurus, ClassThesaurus
-from pddiansm.thesaurus.substances import Substances
-from pddiansm.thesaurus.thesaurus import Thesaurus
-from pddiansm.thesaurus.versions import THESAURUS_VERSIONS
+from pddiansm.thesaurus.Thesaurus import Thesaurus
 
 
 class PDDIansmDetector(PDDIdetector):
-    def __init__(self, version: THESAURUS_VERSIONS):
+    def __init__(self, thesaurus: Thesaurus):
         """
         This class is used to detect potential drug drug interactions with the ANSM reference document
         :param version: a ANSM thesaurus version
         """
-        self.version = version
-        self.indexed_entries = {} # thesaurus molecules and classes are indexed for fast look-up
-        self.__create_indexed_entries(Thesaurus.get_version(version))
+        self.thesaurus = thesaurus
+        self.indexed_entries = {}  # thesaurus molecules and classes are indexed for fast look-up
+        self.__create_indexed_entries(thesaurus.pddis)
 
     def detect_pddi(self, molecule_or_class1: str, molecule_or_class2: str) -> List[PDDI]:
         """
@@ -26,8 +24,8 @@ class PDDIansmDetector(PDDIdetector):
         :return: a List of PDDIsubstance containing the PDDI
         """
         # moc: molecule_or_class
-        moc_thesaurus1 = Substances.search_molecule_or_class(self.version, molecule_or_class1)
-        moc_thesaurus2 = Substances.search_molecule_or_class(self.version, molecule_or_class2)
+        moc_thesaurus1 = self.thesaurus.search_molecule_or_class(molecule_or_class1)
+        moc_thesaurus2 = self.thesaurus.search_molecule_or_class(molecule_or_class2)
         pddis = self.detect_pddi_thesaurus(moc_thesaurus1, moc_thesaurus2)
         return pddis
 

@@ -11,7 +11,7 @@ class PDDIansmDetectorSimpleDrugs(PDDIansmDetector):
     def __init__(self, thesaurus: Thesaurus):
         super().__init__(thesaurus)
 
-    def detect_pddi_in_patient_drugs(self, drugs: List[SimpleDrug]):
+    def detect_pddi_simple_drugs(self, drugs: List[SimpleDrug]):
         # O(n!): if the patients take 6 drugs, we will have 6x5x4x3x2 = 720 comparisons
         pddis: List[List[PDDIdrugsDetected]] = [self.detect_pddi_in_drugs(drug1, drug2)
                                                 for drug1 in drugs
