@@ -1,0 +1,28 @@
+{
+    "pddis": [
+        {
+            "drug_id_1": 1,
+            "substance1": "azithromycine",
+            "ith_substance_1": 0,
+            "drug_id_2": "2",
+            "substance2": "colchicine",
+            "ith_substance_2": 1,
+            "pddi": {
+                "main_drug": "macrolides (sauf spiramycine)",
+                "between_main_and_plus_drug": "(azithromycine, clarithromycine, erythromycine, josamycine, midecamycine, roxithromycine, telithromycine)",
+                "plus_drug": "colchicine",
+                "severity_levels": [
+                    {
+                        "level": "CONTRE-INDICATION",
+                        "info": ""
+                    }
+                ],
+                "interaction_mechanism": "Augmentation des effets indésirables de la colchicine, aux \nconséquences potentiellement fatales.",
+                "description": "CONTRE-INDICATIONAugmentation des effets indésirables de la colchicine, aux \n\nconséquences potentiellement fatales."
+            }
+        }
+    ],
+    "thesaurus": {
+        "thesaurus_version": "092019"
+    }
+}

@@ -4,12 +4,12 @@ from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
 from pddiansm.detector.PDDIdrugsDetected import PDDIdrugsDetected
 from pddiansm.interfaces.interfaces_input import SimpleDrug
 from pddiansm.interfaces.interfaces_pddi import PDDI
-from pddiansm.thesaurus.versions import THESAURUS_VERSIONS
+from pddiansm.thesaurus.Thesaurus import Thesaurus
 
 
-class PDDIansmDetectorDrugs(PDDIansmDetector):
-    def __init__(self, version: THESAURUS_VERSIONS):
-        super().__init__(version)
+class PDDIansmDetectorSimpleDrugs(PDDIansmDetector):
+    def __init__(self, thesaurus: Thesaurus):
+        super().__init__(thesaurus)
 
     def detect_pddi_in_patient_drugs(self, drugs: List[SimpleDrug]):
         # O(n!): if the patients take 6 drugs, we will have 6x5x4x3x2 = 720 comparisons
