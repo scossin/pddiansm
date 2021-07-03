@@ -8,6 +8,9 @@ from pddiansm.thesaurus.Thesaurus import Thesaurus
 
 
 class PDDIansmDetectorSimpleDrugs(PDDIansmDetector):
+    """
+    Detect PDDIs in a list of SimpleDrug. Each simpleDrug can contain one or multiple substances
+    """
     def __init__(self, thesaurus: Thesaurus):
         super().__init__(thesaurus)
 
@@ -20,9 +23,9 @@ class PDDIansmDetectorSimpleDrugs(PDDIansmDetector):
         pddis_flat: List[PDDIdrugsDetected] = [pddi for sublist in pddis for pddi in sublist]
         return pddis_flat
 
-    def detect_pddi_in_drugs(self, drug1: SimpleDrug, drug2: SimpleDrug):
+    def detect_pddi_in_drugs(self, drug1: SimpleDrug, drug2: SimpleDrug) -> List[PDDIdrugsDetected]:
         # O(n!): if one drug has 3 substances and the other 2 substances, there are eventually 3*2 = 6 pddis
-        pddis_drug_detected = []
+        pddis_drug_detected: List[PDDIdrugsDetected] = []
         for i_1, substance_dosage1 in enumerate(drug1.substances):
             for i_2, substance_dosage2 in enumerate(drug2.substances):
                 pddis = self.detect_pddi(substance_dosage1.substance, substance_dosage2.substance)
@@ -30,7 +33,8 @@ class PDDIansmDetectorSimpleDrugs(PDDIansmDetector):
         return pddis_drug_detected
 
     @staticmethod
-    def __add_pddis_detected(pddis_drug_detected: List[PDDIdrugsDetected], pddis: List[PDDI], drug1: SimpleDrug, drug2: SimpleDrug,
+    def __add_pddis_detected(pddis_drug_detected: List[PDDIdrugsDetected], pddis: List[PDDI],
+                             drug1: SimpleDrug, drug2: SimpleDrug,
                              i_1: int, i_2: int):
         if len(pddis) != 0:
             for pddi in pddis:

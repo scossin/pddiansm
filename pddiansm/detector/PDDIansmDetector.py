@@ -8,7 +8,7 @@ from pddiansm.thesaurus.Thesaurus import Thesaurus
 class PDDIansmDetector(PDDIdetector):
     def __init__(self, thesaurus: Thesaurus):
         """
-        This class is used to detect potential drug drug interactions with the ANSM reference document
+        Detect potential drug drug interactions (PDDI) between two substance or drug_class
         :param version: a ANSM thesaurus version
         """
         self.thesaurus = thesaurus
@@ -17,13 +17,15 @@ class PDDIansmDetector(PDDIdetector):
 
     def detect_pddi(self, molecule_or_class1: str, molecule_or_class2: str) -> List[PDDI]:
         """
-        Detect all potential drug drug interactions in the ANSM reference document
+        Detect all potential drug drug interactions in the ANSM guidelines document
         from two molecules or classes in string format
         :param molecule_or_class1: a molecule or a drug class (string)
         :param molecule_or_class2: a molecule or a drug class (string)
         :return: a List of PDDIsubstance containing the PDDI
         """
         # moc: molecule_or_class
+        # if moc is a molecule, we retrieve all its drug_classes first and we search PDDIs
+        # if moc is a drug_class, we don't retrieve all the molecule it contains because each molecule may interact on their own
         moc_thesaurus1 = self.thesaurus.search_molecule_or_class(molecule_or_class1)
         moc_thesaurus2 = self.thesaurus.search_molecule_or_class(molecule_or_class2)
         pddis = self.detect_pddi_thesaurus(moc_thesaurus1, moc_thesaurus2)
@@ -32,7 +34,7 @@ class PDDIansmDetector(PDDIdetector):
     def detect_pddi_thesaurus(self, moc1: Union[SubstanceThesaurus, ClassThesaurus],
                               moc2: Union[SubstanceThesaurus, ClassThesaurus]) -> List[PDDI]:
         """
-        Detect all potential drug drug interactions in the ANSM reference document
+        Detect all potential drug drug interactions in the ANSM guidelines document
         from two SubstanceThesaurus or ClassThesaurus
         :param moc1: a `SubstanceThesaurus` or `ClassThesaurus` representing substance / classe in the ANSM reference document
         :param moc2: a `SubstanceThesaurus` or `ClassThesaurus` representing substance / classe in the ANSM reference document
