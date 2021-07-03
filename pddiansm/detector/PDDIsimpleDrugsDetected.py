@@ -45,9 +45,11 @@ class PDDIsimpleDrugsDetected:
         }
 
     def __get_pddi_id(self):
-        return self.pddi.main_drug + ";" + self.pddi.plus_drug
+        main_entries = [self.pddi.main_drug, self.pddi.plus_drug]
+        main_entries = sorted(main_entries)
+        return ";".join(main_entries)
 
     def __str__(self):
         substance1 = self.drug1.substances[self.i_1].substance
         substance2 = self.drug2.substances[self.i_2].substance
-        return f"{substance1} ({self.pddi.main_drug}) can interact with {substance2} ({self.pddi.plus_drug})"
+        return f"{substance1} (from  '{self.pddi.main_drug}') can interact with {substance2} (from '{self.pddi.plus_drug}')"
