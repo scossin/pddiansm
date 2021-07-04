@@ -15,8 +15,6 @@ class PDDI(BaseModel):
     severity_levels: List[SeverityLevel]
     interaction_mechanism: str
     description: str
-    def __str__(self):
-        return f"{self.main_drug} can interact with {self.plus_drug}"
 
 
 class SubstanceThesaurus(BaseModel):
@@ -26,9 +24,14 @@ class SubstanceThesaurus(BaseModel):
 
 class ClassThesaurus(BaseModel):
     drug_class: str
-    substances: List[str]
+    parent_drug_classes: List[str]
 
-
-class SubstanceClasses(BaseModel):
-    hashmap_substances: Dict[str, SubstanceThesaurus]  # map substance to SubstanceThesaurus
-    hashmap_drug_classes: Dict[str, ClassThesaurus]  # map classes to ClassThesaurus
+#### Two majors comments on ClassThesaurus
+# 1) why there is no "substances: List[str]" in ClassThesaurus since a drug_class contains substances ?
+# when we search PDDI with a drug_class, we don't want to search PDDI for every individual substance that the drug_class contains
+# because individual substance can interact on their own
+# so there is no "substances: List[str]". Given a drug_class, we search PDDI only at the drug_class level
+# 2) what are parent_drug_classes ?
+# there are hierarchical relationships between drug_classes. These relationships are not explicitly stated in the document
+# For example "diurétiques de l'anse" is a subClassOf "diurétiques hypokaliémants" since all the substances of the former
+# are presents in the latter.

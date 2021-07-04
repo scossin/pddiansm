@@ -54,12 +54,12 @@ class MyTestCase(unittest.TestCase):
         pddis = pddi_detector.detect_pddi(substance1, substance2)
         self.assertTrue(len(pddis) == 1)
 
-    def test_detection_ansmDetector(self):
+    def test_detection_two_codeine(self):
         pddi_detector = get_pddi_detector_2019()
-        substance1 = "azithromycine"
-        substance2 = "colchicine"
+        substance1 = "codeine"
+        substance2 = "codeine"
         pddis = pddi_detector.detect_pddi(substance1, substance2)
-        self.assertTrue(len(pddis) == 1)
+        self.assertTrue(len(pddis) == 6)
 
 
 if __name__ == '__main__':
