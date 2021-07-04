@@ -10,6 +10,9 @@ class PDDIdetected:
         self.thesaurus_version = thesaurus_version
         self.id = PDDIdetected.get_pddi_detected_id(self)
 
+    def __str__(self):
+        return f"{self.moc1} (from '{self.pddi.main_drug}') can interact with {self.moc2} (from '{self.pddi.plus_drug}')"
+
     def __eq__(self, other):
         """
         Two pddi_detected are the same if:
@@ -59,6 +62,3 @@ class PDDIdetected:
     @property
     def description(self):
         return self.pddi.description
-
-    def __str__(self):
-        return f"{self.moc1} (from  '{self.pddi.main_drug}') can interact with {self.moc2} (from '{self.pddi.plus_drug}')"
