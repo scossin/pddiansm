@@ -7,6 +7,30 @@ class PDDIdetected:
         self.pddi = pddi
         self.moc1 = molecule_or_class1
         self.moc2 = molecule_or_class2
+        self.id = PDDIdetected.get_pddi_detected_id(self)
+
+    def __eq__(self, other):
+        """
+        Two pddi_detected are the same if:
+            - the pddi_id is the same
+            - moc1 and moc2 are the same whatever their order
+        """
+        return self.id == other.id
+
+    @classmethod
+    def get_pddi_id(cls, pddi: PDDI):
+        main_entries = [pddi.main_drug, pddi.plus_drug]
+        main_entries = sorted(main_entries)
+        return ";".join(main_entries)
+
+    @classmethod
+    def get_pddi_detected_id(cls, pddi_detected: PDDIdetected):
+        pddi_id = cls.get_pddi_id(pddi_detected.pddi)
+        mocs = [pddi_detected.moc1, pddi_detected.moc2]
+        mocs = sorted(mocs)
+        mocs_id = ";".join(mocs)
+        pddi_detected_id = pddi_id + mocs_id
+        return pddi_detected_id
 
     @property
     def main_drug(self):
@@ -32,17 +56,5 @@ class PDDIdetected:
     def description(self):
         return self.pddi.description
 
-    @classmethod
-    def get_pddi_id(cls, pddi: PDDI):
-        main_entries = [pddi.main_drug, pddi.plus_drug]
-        main_entries = sorted(main_entries)
-        return ";".join(main_entries)
-
     def __str__(self):
         return f"{self.moc1} (from  '{self.pddi.main_drug}') can interact with {self.moc2} (from '{self.pddi.plus_drug}')"
-
-
-def build_pddi_detected(pddi, molecule_or_class1, molecule_or_class2) -> PDDIdetected:
-    if pddi is None:
-        return None
-    return PDDIdetected(pddi, molecule_or_class1, molecule_or_class2)
