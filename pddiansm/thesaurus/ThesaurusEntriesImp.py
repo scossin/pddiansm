@@ -1,7 +1,9 @@
 from typing import List
 
+from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
 
-class ThesaurusEntries:
+
+class ThesaurusEntriesImp(IThesaurusEntries):
     def __init__(self, search_moc):
         self.substances = []
         self.drug_classes = []
@@ -14,6 +16,7 @@ class ThesaurusEntries:
         self.drug_classes.append(drug_class)
 
     def get_list_of_substance_and_classes(self) -> List[str]:
+        """ Overrides """
         substance_and_classes = self.substances + self.drug_classes
         return substance_and_classes
 

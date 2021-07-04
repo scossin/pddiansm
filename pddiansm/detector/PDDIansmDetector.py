@@ -5,8 +5,8 @@ from pddiansm.detector.PDDIdetector import PDDIdetector
 from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.mapper.IMapper import IMapper
 from pddiansm.mapper.StringMapper import StringMapper
+from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
 from pddiansm.thesaurus.Thesaurus import Thesaurus
-from pddiansm.thesaurus.ThesaurusEntries import ThesaurusEntries
 
 
 class PDDIansmDetector(PDDIdetector):
@@ -28,16 +28,16 @@ class PDDIansmDetector(PDDIdetector):
         :param molecule_or_class2: a molecule or a drug class (string)
         :return: a List of PDDIsubstance containing the PDDI
         """
-        thesaurus_entries_1: ThesaurusEntries = self.mapper.search_moc(molecule_or_class1)
-        thesaurus_entries_2: ThesaurusEntries = self.mapper.search_moc(molecule_or_class2)
+        thesaurus_entries_1: IThesaurusEntries = self.mapper.search_moc(molecule_or_class1)
+        thesaurus_entries_2: IThesaurusEntries = self.mapper.search_moc(molecule_or_class2)
         pddis: List[PDDI] = self.search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
         pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, molecule_or_class1, molecule_or_class2)
                                               for pddi in pddis]
         pddis_detected = self._remove_duplicates(pddis_detected)
         return pddis_detected
 
-    def search_pddi_thesaurus(self, thesaurus_entries_1: ThesaurusEntries,
-                              thesaurus_entries_2: ThesaurusEntries) -> List[PDDI]:
+    def search_pddi_thesaurus(self, thesaurus_entries_1: IThesaurusEntries,
+                              thesaurus_entries_2: IThesaurusEntries) -> List[PDDI]:
         """
         Detect all potential drug drug interactions in the ANSM guidelines document
         given several thesaurus entries (substances or drug_classes)
