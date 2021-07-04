@@ -1,8 +1,8 @@
 from typing import List
 
 from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
-from pddiansm.detector.PDDIdetected import PDDIdetected
-from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
+from pddiansm.detected.PDDIdetected import PDDIdetected
+from pddiansm.detected.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
 from pddiansm.pydantic.interfaces_input import SimpleDrug
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 

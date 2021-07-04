@@ -1,6 +1,6 @@
 from typing import List
 
-from pddiansm.detector.PDDIdetected import PDDIdetected
+from pddiansm.detected.PDDIdetected import PDDIdetected
 from pddiansm.detector.IPDDIdetector import IPDDIdetector
 from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.mapper.IMapper import IMapper

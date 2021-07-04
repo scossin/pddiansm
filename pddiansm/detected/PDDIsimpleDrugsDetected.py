@@ -1,4 +1,4 @@
-from pddiansm.detector.PDDIdetected import PDDIdetected
+from pddiansm.detected.PDDIdetected import PDDIdetected
 from pddiansm.pydantic.interfaces_input import SimpleDrug
 
 

@@ -1,7 +1,7 @@
 import unittest
 from typing import List
 
-from pddiansm.detector.PDDIdetected import PDDIdetected
+from pddiansm.detected.PDDIdetected import PDDIdetected
 from pddiansm.mapper.IdentifierMapper import IdentifierMapper
 from tests.test_detection import get_pddi_detector_2019
 from tests.test_wikidata_mapping_file import get_wikidata_substance_mapping

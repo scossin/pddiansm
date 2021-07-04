@@ -4,7 +4,7 @@ from typing import List
 import pydantic
 
 from pddiansm.detector.PDDIsimpleDrugsDetector import PDDIsimpleDrugsDetector
-from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
+from pddiansm.detected.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
 from pddiansm.pydantic.interfaces_input import SimpleDrug
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.ThesauriJson import ThesauriJson

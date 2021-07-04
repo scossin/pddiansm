@@ -2,7 +2,7 @@ import unittest
 from typing import List
 
 from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
-from pddiansm.detector.PDDIdetected import PDDIdetected
+from pddiansm.detected.PDDIdetected import PDDIdetected
 from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.ThesauriJson import ThesauriJson
