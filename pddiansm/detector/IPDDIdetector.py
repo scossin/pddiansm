@@ -3,7 +3,7 @@ from typing import List
 from pddiansm.detector.PDDIdetected import PDDIdetected
 
 
-class PDDIdetector:
+class IPDDIdetector:
 
     def detect_pddi(self, string1: str, string2: str) -> List[PDDIdetected]:
         """

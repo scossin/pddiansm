@@ -1,7 +1,7 @@
 from typing import List
 
 from pddiansm.detector.PDDIdetected import PDDIdetected
-from pddiansm.detector.PDDIdetector import PDDIdetector
+from pddiansm.detector.IPDDIdetector import IPDDIdetector
 from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.mapper.IMapper import IMapper
 from pddiansm.mapper.StringMapper import StringMapper
@@ -9,7 +9,7 @@ from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
 from pddiansm.thesaurus.Thesaurus import Thesaurus
 
 
-class PDDIansmDetector(PDDIdetector):
+class PDDIansmDetector(IPDDIdetector):
     def __init__(self, thesaurus: Thesaurus):
         """
         Detect potential drug drug interactions (PDDI) between two substance or drug_class
