@@ -11,7 +11,8 @@ class PDDIdetected:
         self.id = PDDIdetected.get_pddi_detected_id(self)
 
     def __str__(self):
-        return f"{self.moc1} (from '{self.pddi.main_drug}') can interact with {self.moc2} (from '{self.pddi.plus_drug}')"
+        return f"{self.moc1} (from '{self.pddi.main_drug}') can interact with {self.moc2} (from '{self.pddi.plus_drug}')" \
+               f" in thesaurus version {self.thesaurus_version}"
 
     def __eq__(self, other):
         """
@@ -23,6 +24,20 @@ class PDDIdetected:
 
     def __hash__(self):
         return hash(self.id)
+
+    def get_dict_representation(self):
+        severity_levels = [{"level": severity_info.level,
+                            "info": severity_info.info}
+                           for severity_info in self.severity_levels]
+        return {
+            "pddi_id": PDDIdetected.get_pddi_detected_id(self),
+            "main_drug": self.main_drug,
+            "between_main_and_plus_drug": self.between_main_and_plus_drug,
+            "plus_drug": self.plus_drug,
+            "severity_levels": severity_levels,
+            "interaction_mechanism": self.interaction_mechanism,
+            "description": self.description
+        }
 
     @classmethod
     def get_pddi_id(cls, pddi: PDDI):

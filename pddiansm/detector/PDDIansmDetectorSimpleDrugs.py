@@ -1,9 +1,9 @@
 from typing import List
 
 from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
+from pddiansm.detector.PDDIdetected import PDDIdetected
 from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
 from pddiansm.pydantic.interfaces_input import SimpleDrug
-from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 
 
@@ -28,15 +28,15 @@ class PDDIansmDetectorSimpleDrugs(PDDIansmDetector):
         pddis_drug_detected: List[PDDIsimpleDrugsDetected] = []
         for i_1, substance_dosage1 in enumerate(drug1.substances):
             for i_2, substance_dosage2 in enumerate(drug2.substances):
-                pddis = self.detect_pddi(substance_dosage1.substance, substance_dosage2.substance)
-                self.__add_pddis_detected(pddis_drug_detected, pddis, drug1, drug2, i_1, i_2)
+                pddis_detected: List[PDDIdetected] = self.detect_pddi(substance_dosage1.substance,
+                                                                      substance_dosage2.substance)
+                self.__add_pddis_detected(pddis_drug_detected, pddis_detected, drug1, drug2)
         return pddis_drug_detected
 
     @staticmethod
-    def __add_pddis_detected(pddis_drug_detected: List[PDDIsimpleDrugsDetected], pddis: List[PDDI],
-                             drug1: SimpleDrug, drug2: SimpleDrug,
-                             i_1: int, i_2: int):
-        if len(pddis) != 0:
-            for pddi in pddis:
-                pddi_drug_detected = PDDIsimpleDrugsDetected(pddi, drug1, drug2, i_1, i_2)
+    def __add_pddis_detected(pddis_drug_detected: List[PDDIsimpleDrugsDetected], pddis_detected: List[PDDIdetected],
+                             drug1: SimpleDrug, drug2: SimpleDrug):
+        if len(pddis_detected) != 0:
+            for pddi_detected in pddis_detected:
+                pddi_drug_detected = PDDIsimpleDrugsDetected(pddi_detected, drug1, drug2)
                 pddis_drug_detected.append(pddi_drug_detected)
