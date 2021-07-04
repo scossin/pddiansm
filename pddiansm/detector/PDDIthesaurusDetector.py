@@ -20,25 +20,18 @@ class PDDIthesaurusDetector(IPDDIdetector):
         self.indexed_entries = {}  # thesaurus molecules and classes are indexed for fast look-up
         self.__create_indexed_entries(thesaurus.get_pddis())
 
-    def detect_pddi(self, molecule_or_class1: str, molecule_or_class2: str) -> List[PDDIdetected]:
-        """
-        Detect all potential drug drug interactions in the ANSM guidelines document
-        from two molecules or classes in string format
-        :param molecule_or_class1: a molecule or a drug class (string)
-        :param molecule_or_class2: a molecule or a drug class (string)
-        :return: a List of PDDIsubstance containing the PDDI
-        """
-        thesaurus_entries_1: IThesaurusEntries = self.mapper.search_moc(molecule_or_class1)
-        thesaurus_entries_2: IThesaurusEntries = self.mapper.search_moc(molecule_or_class2)
-        pddis: List[PDDI] = self.search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
-        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, molecule_or_class1, molecule_or_class2,
-                                                           self.thesaurus.get_thesaurus_version())
+    def detect_pddi(self, string1: str, string2: str) -> List[PDDIdetected]:
+        """ Overrides """
+        thesaurus_entries_1: IThesaurusEntries = self.mapper.search_moc(string1)
+        thesaurus_entries_2: IThesaurusEntries = self.mapper.search_moc(string2)
+        pddis: List[PDDI] = self._search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
+        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, string1, string2, self.thesaurus.get_thesaurus_version())
                                               for pddi in pddis]
         pddis_detected = self._remove_duplicates(pddis_detected)
         return pddis_detected
 
-    def search_pddi_thesaurus(self, thesaurus_entries_1: IThesaurusEntries,
-                              thesaurus_entries_2: IThesaurusEntries) -> List[PDDI]:
+    def _search_pddi_thesaurus(self, thesaurus_entries_1: IThesaurusEntries,
+                               thesaurus_entries_2: IThesaurusEntries) -> List[PDDI]:
         """
         Detect all potential drug drug interactions in the ANSM guidelines document
         given several thesaurus entries (substances or drug_classes)
