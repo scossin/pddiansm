@@ -7,7 +7,7 @@ from pddiansm.pydantic.interfaces_input import SimpleDrug
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 
 
-class PDDIansmDetectorSimpleDrugs(PDDIthesaurusDetector):
+class PDDIsimpleDrugsDetector(PDDIthesaurusDetector):
     """
     Detect PDDIs in a list of SimpleDrug. Each simpleDrug can contain one or multiple substances
     """
