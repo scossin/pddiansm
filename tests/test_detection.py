@@ -38,41 +38,43 @@ class MyTestCase(unittest.TestCase):
         pddis: List[PDDIdetected] = pddi_detector.detect_pddi(classe1, substance1)
         pddi_detected_2 = pddis[0]
         self.assertEqual(pddi_detected_1, pddi_detected_2)
+        pddi_detected = pddi_detector._remove_duplicates([pddi_detected_1, pddi_detected_2])
+        self.assertTrue(len(pddi_detected) == 1)
 
     def test_detection_when_substance_is_unknown(self):
         pddi_detector = get_pddi_detector_2019()
         substance1 = "abatacept"
         substance2 = "a molecule that doesn't exist"
-        pddis: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
-        self.assertTrue(len(pddis) == 0)
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        self.assertTrue(len(pddis_detected) == 0)
 
     def test_detection_classe_classe(self):
         pddi_detector = get_pddi_detector_2019()
         classe1 = "Minéralocorticoïdes"
         classe2 = "Anticonvulsivants Inducteurs enzymatiques"
-        pddis: List[PDDIdetected] = pddi_detector.detect_pddi(classe1, classe2)
-        self.assertTrue(len(pddis) == 1)
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(classe1, classe2)
+        self.assertTrue(len(pddis_detected) == 1)
 
     def test_detection_substance_substance(self):
         pddi_detector = get_pddi_detector_2019()
         substance1 = "dompéridone"
         substance2 = "escitalopram"
-        pddis: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
-        self.assertTrue(len(pddis) == 2)
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        self.assertTrue(len(pddis_detected) == 1)
 
     def test_detection_substance_substance_2(self):
         pddi_detector = get_pddi_detector_2019()
         substance1 = "azithromycine"
         substance2 = "colchicine"
-        pddis: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
-        self.assertTrue(len(pddis) == 1)
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        self.assertTrue(len(pddis_detected) == 1)
 
     def test_detection_two_codeine(self):
         pddi_detector = get_pddi_detector_2019()
         substance1 = "codeine"
         substance2 = "codeine"
-        pddis: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
-        self.assertTrue(len(pddis) == 6)
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        self.assertTrue(len(pddis_detected) == 3)
 
 
 if __name__ == '__main__':

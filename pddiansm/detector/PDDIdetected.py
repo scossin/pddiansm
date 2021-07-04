@@ -17,6 +17,9 @@ class PDDIdetected:
         """
         return self.id == other.id
 
+    def __hash__(self):
+        return hash(self.id)
+
     @classmethod
     def get_pddi_id(cls, pddi: PDDI):
         main_entries = [pddi.main_drug, pddi.plus_drug]

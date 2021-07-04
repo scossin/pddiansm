@@ -31,9 +31,10 @@ class PDDIansmDetector(PDDIdetector):
         thesaurus_entries_1: ThesaurusEntries = self.mapper.search_moc(molecule_or_class1)
         thesaurus_entries_2: ThesaurusEntries = self.mapper.search_moc(molecule_or_class2)
         pddis: List[PDDI] = self.search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
-        pddi_detected: List[PDDIdetected] = [PDDIdetected(pddi, molecule_or_class1, molecule_or_class2)
-                                             for pddi in pddis]
-        return pddi_detected
+        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, molecule_or_class1, molecule_or_class2)
+                                              for pddi in pddis]
+        pddis_detected = self._remove_duplicates(pddis_detected)
+        return pddis_detected
 
     def search_pddi_thesaurus(self, thesaurus_entries_1: ThesaurusEntries,
                               thesaurus_entries_2: ThesaurusEntries) -> List[PDDI]:
@@ -53,6 +54,14 @@ class PDDIansmDetector(PDDIdetector):
         moc1_interact_with = self.indexed_entries.get(molecule_or_class1, {})
         pddi = moc1_interact_with.get(molecule_or_class2, None)
         return pddi
+
+    @staticmethod
+    def _remove_duplicates(pddis_detected: List[PDDIdetected]) -> List[PDDIdetected]:
+        """ Duplicates can happen if :
+            1) moc1 and moc2 belong to the same drug_class and this drug_class interactfs with itself
+            2) moc1 is the same as moc2 and 1) is true
+        """
+        return list(set(pddis_detected))
 
     @staticmethod
     def __remove_none_values(pddis):
