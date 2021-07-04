@@ -4,7 +4,6 @@ from pddiansm.pydantic.interfaces_pddi import SubstanceThesaurus, ClassThesaurus
 from pddiansm.mapper.IMapper import IMapper
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
-from pddiansm.thesaurus.ThesaurusJson import ThesaurusJson
 from pddiansm.thesaurus.ThesaurusEntriesImp import ThesaurusEntriesImp
 from pddiansm.utils.normalize_string import normalize_string
 

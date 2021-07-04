@@ -4,11 +4,17 @@ from typing import List
 from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
 from pddiansm.detector.PDDIdetected import PDDIdetected
 from pddiansm.pydantic.interfaces_pddi import PDDI
+from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.ThesauriJson import ThesauriJson
 
 
-def get_pddi_detector_2019():
+def get_thesaurus_2009() -> IThesaurus:
     thesaurus = ThesauriJson().get_thesaurus("2019_09")
+    return thesaurus
+
+
+def get_pddi_detector_2019():
+    thesaurus: IThesaurus = get_thesaurus_2009()
     pddi_detector = PDDIthesaurusDetector(thesaurus)
     return pddi_detector
 

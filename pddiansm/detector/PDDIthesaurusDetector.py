@@ -16,7 +16,8 @@ class PDDIthesaurusDetector(IPDDIdetector):
         :param version: a ANSM thesaurus version
         """
         self.thesaurus: IThesaurus = thesaurus
-        self.mapper: IMapper = StringMapper(thesaurus)
+        self.string_mapper: StringMapper = StringMapper(thesaurus)
+        self.mapper: IMapper = self.string_mapper  # default mapper
         self.indexed_entries = {}  # thesaurus molecules and classes are indexed for fast look-up
         self.__create_indexed_entries(thesaurus.get_pddis())
 
@@ -25,10 +26,14 @@ class PDDIthesaurusDetector(IPDDIdetector):
         thesaurus_entries_1: IThesaurusEntries = self.mapper.search_moc(string1)
         thesaurus_entries_2: IThesaurusEntries = self.mapper.search_moc(string2)
         pddis: List[PDDI] = self._search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
-        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, string1, string2, self.thesaurus.get_thesaurus_version())
-                                              for pddi in pddis]
+        pddis_detected: List[PDDIdetected] = [
+            PDDIdetected(pddi, string1, string2, self.thesaurus.get_thesaurus_version())
+            for pddi in pddis]
         pddis_detected = self._remove_duplicates(pddis_detected)
         return pddis_detected
+
+    def set_mapper(self, mapper: IMapper) -> None:
+        self.mapper = mapper
 
     def _search_pddi_thesaurus(self, thesaurus_entries_1: IThesaurusEntries,
                                thesaurus_entries_2: IThesaurusEntries) -> List[PDDI]:

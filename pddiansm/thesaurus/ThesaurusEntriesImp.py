@@ -17,6 +17,6 @@ class ThesaurusEntriesImp(IThesaurusEntries):
 
     def get_list_of_substance_and_classes(self) -> List[str]:
         """ Overrides """
-        substance_and_classes = self.substances + self.drug_classes
+        substance_and_classes = list(set(self.substances)) + list(set(self.drug_classes))  # to be sure everything is unique
         return substance_and_classes
 
