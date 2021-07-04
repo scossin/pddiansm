@@ -3,10 +3,11 @@ from pddiansm.pydantic.interfaces_pddi import PDDI
 
 
 class PDDIdetected:
-    def __init__(self, pddi: PDDI, molecule_or_class1: str, molecule_or_class2: str):
+    def __init__(self, pddi: PDDI, molecule_or_class1: str, molecule_or_class2: str, thesaurus_version: str):
         self.pddi = pddi
         self.moc1 = molecule_or_class1
         self.moc2 = molecule_or_class2
+        self.thesaurus_version = thesaurus_version
         self.id = PDDIdetected.get_pddi_detected_id(self)
 
     def __eq__(self, other):

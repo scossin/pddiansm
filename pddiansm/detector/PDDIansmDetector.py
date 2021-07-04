@@ -31,7 +31,8 @@ class PDDIansmDetector(IPDDIdetector):
         thesaurus_entries_1: IThesaurusEntries = self.mapper.search_moc(molecule_or_class1)
         thesaurus_entries_2: IThesaurusEntries = self.mapper.search_moc(molecule_or_class2)
         pddis: List[PDDI] = self.search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
-        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, molecule_or_class1, molecule_or_class2)
+        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, molecule_or_class1, molecule_or_class2,
+                                                           self.thesaurus.get_thesaurus_version())
                                               for pddi in pddis]
         pddis_detected = self._remove_duplicates(pddis_detected)
         return pddis_detected
