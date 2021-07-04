@@ -2,16 +2,17 @@ from typing import Dict
 
 from pddiansm.pydantic.interfaces_pddi import SubstanceThesaurus, ClassThesaurus
 from pddiansm.mapper.IMapper import IMapper
+from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
-from pddiansm.thesaurus.Thesaurus import Thesaurus
+from pddiansm.thesaurus.ThesaurusJson import ThesaurusJson
 from pddiansm.thesaurus.ThesaurusEntriesImp import ThesaurusEntriesImp
 from pddiansm.utils.normalize_string import normalize_string
 
 
 class StringMapper(IMapper):
 
-    def __init__(self, thesaurus: Thesaurus):
-        self.thesaurus = thesaurus
+    def __init__(self, thesaurus: IThesaurus):
+        self.thesaurus: IThesaurus = thesaurus
         self.hashmap_substances: Dict[str, SubstanceThesaurus] = self.__create_hashmap_substances()
         self.hashmap_drug_classes: Dict[str, ClassThesaurus] = self.__create_hashmap_drug_classes()
 
@@ -45,7 +46,7 @@ class StringMapper(IMapper):
 
     def __create_hashmap_substances(self) -> Dict[str, SubstanceThesaurus]:
         hashmap_substances = {substance_thesaurus.substance: substance_thesaurus
-                              for substance_thesaurus in self.thesaurus.substances_thesaurus}
+                              for substance_thesaurus in self.thesaurus.get_substances_thesaurus()}
         return hashmap_substances
 
     def __create_hashmap_drug_classes(self) -> Dict[str, ClassThesaurus]:

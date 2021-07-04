@@ -6,19 +6,19 @@ from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.mapper.IMapper import IMapper
 from pddiansm.mapper.StringMapper import StringMapper
 from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
-from pddiansm.thesaurus.Thesaurus import Thesaurus
+from pddiansm.thesaurus.ThesaurusJson import IThesaurus
 
 
 class PDDIansmDetector(IPDDIdetector):
-    def __init__(self, thesaurus: Thesaurus):
+    def __init__(self, thesaurus: IThesaurus):
         """
         Detect potential drug drug interactions (PDDI) between two substance or drug_class
         :param version: a ANSM thesaurus version
         """
-        self.thesaurus = thesaurus
+        self.thesaurus: IThesaurus = thesaurus
         self.mapper: IMapper = StringMapper(thesaurus)
         self.indexed_entries = {}  # thesaurus molecules and classes are indexed for fast look-up
-        self.__create_indexed_entries(thesaurus.pddis)
+        self.__create_indexed_entries(thesaurus.get_pddis())
 
     def detect_pddi(self, molecule_or_class1: str, molecule_or_class2: str) -> List[PDDIdetected]:
         """

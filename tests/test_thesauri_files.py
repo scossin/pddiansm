@@ -1,7 +1,7 @@
 import unittest
 
 from pddiansm.thesaurus.ThesauriFiles import ThesauriFiles
-from pddiansm.thesaurus.Thesaurus import Thesaurus
+from pddiansm.thesaurus.ThesaurusJson import ThesaurusJson
 from pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
 
 
@@ -31,7 +31,7 @@ class MyTestCase(unittest.TestCase):
         thesaurus_versions = thesauri_files.get_available_thesaurus_version()
         first_version = thesaurus_versions[0]
         thesaurus_files = thesauri_files.get_thesaurus_files(first_version)
-        thesaurus = Thesaurus(thesaurus_files)
+        thesaurus = ThesaurusJson(thesaurus_files)
         self.assertIsInstance(thesaurus.pddis, list)
         self.assertEqual(len(thesaurus.pddis), 3035)
 

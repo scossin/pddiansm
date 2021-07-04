@@ -1,7 +1,7 @@
 import unittest
 
 from pddiansm.thesaurus.Thesauri import Thesauri
-from pddiansm.thesaurus.Thesaurus import Thesaurus
+from pddiansm.thesaurus.ThesaurusJson import ThesaurusJson
 
 
 class MyTestCase(unittest.TestCase):
@@ -9,7 +9,7 @@ class MyTestCase(unittest.TestCase):
         thesauri = Thesauri()
         thesaurus_version = "2019_09"
         thesaurus = thesauri.get_thesaurus(thesaurus_version)
-        self.assertIsInstance(thesaurus, Thesaurus)
+        self.assertIsInstance(thesaurus, ThesaurusJson)
 
     def test_singleton(self):
         thesauri1 = Thesauri()

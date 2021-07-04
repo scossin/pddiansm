@@ -4,14 +4,14 @@ from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
 from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
 from pddiansm.pydantic.interfaces_input import SimpleDrug
 from pddiansm.pydantic.interfaces_pddi import PDDI
-from pddiansm.thesaurus.Thesaurus import Thesaurus
+from pddiansm.thesaurus.IThesaurus import IThesaurus
 
 
 class PDDIansmDetectorSimpleDrugs(PDDIansmDetector):
     """
     Detect PDDIs in a list of SimpleDrug. Each simpleDrug can contain one or multiple substances
     """
-    def __init__(self, thesaurus: Thesaurus):
+    def __init__(self, thesaurus: IThesaurus):
         super().__init__(thesaurus)
 
     def detect_pddi_multiple_drugs(self, drugs: List[SimpleDrug]) -> List[PDDIsimpleDrugsDetected]:

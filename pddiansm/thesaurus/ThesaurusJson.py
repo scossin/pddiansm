@@ -3,36 +3,32 @@ from typing import List
 import pydantic
 
 from pddiansm.pydantic.interfaces_pddi import PDDI, SubstanceThesaurus
+from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.ThesaurusFiles import ThesaurusFiles
 from pddiansm.utils.normalize_string import normalize_string
 
 
-class Thesaurus:
-    """
-    This class stores the content of a thesaurus:
-        - PDDIs: list of potential drug drug interactions
-        - substances_thesaurus: list of substances and their classes
-    """
-
+class ThesaurusJson(IThesaurus):
     def __init__(self, thesaurus_files: ThesaurusFiles):
         self.thesaurus_files = thesaurus_files
 
         thesaurus_file = thesaurus_files.get_thesaurus_file_path()
-        self.pddis: List[PDDI] = Thesaurus.load_pddis(thesaurus_file)
+        self.pddis: List[PDDI] = ThesaurusJson.load_pddis(thesaurus_file)
 
         substance_file = thesaurus_files.get_substance_file_path()
-        self.substances_thesaurus: List[SubstanceThesaurus] = Thesaurus.load_substances(substance_file)
+        self.substances_thesaurus: List[SubstanceThesaurus] = ThesaurusJson.load_substances(substance_file)
 
-    def get_unique_substances(self):
-        substances_list = [substance_thesaurus.substance for substance_thesaurus in self.substances_thesaurus]
-        unique_substances = set(substances_list)
-        return unique_substances
+    def get_pddis(self) -> List[PDDI]:
+        """ Overrides """
+        return self.pddis
 
-    def get_unique_drug_classes(self):
-        classes_list = [substance_thesaurus.drug_classes for substance_thesaurus in self.substances_thesaurus]
-        flat_classes_list = [classe for sublist in classes_list for classe in sublist]
-        unique_classes = set(flat_classes_list)
-        return unique_classes
+    def get_substances_thesaurus(self) -> List[SubstanceThesaurus]:
+        """ Overrides """
+        return self.substances_thesaurus
+
+    def get_thesaurus_version(self) -> str:
+        """ Overrides """
+        return self.thesaurus_files.thesaurus_version
 
     @classmethod
     def load_pddis(cls, thesaurus_file: str) -> List[PDDI]:
