@@ -6,6 +6,10 @@ from pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
 
 
 class MyTestCase(unittest.TestCase):
+    def test_load_thesauri_files(self):
+        thesauri_files = ThesauriFiles().thesauri_files
+        self.assertEqual(len(thesauri_files), 1)
+
     def test_thesauri_files(self):
         thesauri_files = ThesauriFiles()
         self.assertEqual(len(thesauri_files.get_thesauri_files()), 1)

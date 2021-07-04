@@ -19,10 +19,6 @@ def get_path(filename: str) -> str:
 
 class MyTestCase(unittest.TestCase):
 
-    def test_load_thesauri_files(self):
-        thesauri_files = ThesauriFiles().thesauri_files
-        self.assertEqual(len(thesauri_files), 1)
-
     def test_interface_pddi(self):
         package_path = pkg_resources.path("pddiansm", "data")
         with package_path as path:

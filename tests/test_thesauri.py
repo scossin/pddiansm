@@ -1,19 +1,20 @@
 import unittest
 
+from pddiansm.thesaurus.IThesauri import IThesauri
+from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.ThesauriJson import ThesauriJson
-from pddiansm.thesaurus.ThesaurusJson import ThesaurusJson
 
 
 class MyTestCase(unittest.TestCase):
     def test_load_thesaurus(self):
-        thesauri = ThesauriJson()
+        thesauri: IThesauri = ThesauriJson()
         thesaurus_version = "2019_09"
-        thesaurus = thesauri.get_thesaurus(thesaurus_version)
-        self.assertIsInstance(thesaurus, ThesaurusJson)
+        thesaurus: IThesaurus = thesauri.get_thesaurus(thesaurus_version)
+        self.assertIsInstance(thesaurus, IThesaurus)
 
     def test_singleton(self):
-        thesauri1 = ThesauriJson()
-        thesauri2 = ThesauriJson()
+        thesauri1: IThesauri = ThesauriJson()
+        thesauri2: IThesauri = ThesauriJson()
         self.assertEqual(thesauri1, thesauri2)
 
 
