@@ -1,13 +1,13 @@
 from typing import List
 
-from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
+from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
 from pddiansm.detector.PDDIdetected import PDDIdetected
 from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
 from pddiansm.pydantic.interfaces_input import SimpleDrug
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 
 
-class PDDIansmDetectorSimpleDrugs(PDDIansmDetector):
+class PDDIansmDetectorSimpleDrugs(PDDIthesaurusDetector):
     """
     Detect PDDIs in a list of SimpleDrug. Each simpleDrug can contain one or multiple substances
     """

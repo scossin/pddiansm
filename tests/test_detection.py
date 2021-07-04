@@ -1,7 +1,7 @@
 import unittest
 from typing import List
 
-from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
+from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
 from pddiansm.detector.PDDIdetected import PDDIdetected
 from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.thesaurus.ThesauriJson import ThesauriJson
@@ -9,7 +9,7 @@ from pddiansm.thesaurus.ThesauriJson import ThesauriJson
 
 def get_pddi_detector_2019():
     thesaurus = ThesauriJson().get_thesaurus("2019_09")
-    pddi_detector = PDDIansmDetector(thesaurus)
+    pddi_detector = PDDIthesaurusDetector(thesaurus)
     return pddi_detector
 
 

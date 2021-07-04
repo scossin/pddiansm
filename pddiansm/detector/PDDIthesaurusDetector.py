@@ -9,7 +9,7 @@ from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
 from pddiansm.thesaurus.ThesaurusJson import IThesaurus
 
 
-class PDDIansmDetector(IPDDIdetector):
+class PDDIthesaurusDetector(IPDDIdetector):
     def __init__(self, thesaurus: IThesaurus):
         """
         Detect potential drug drug interactions (PDDI) between two substance or drug_class
