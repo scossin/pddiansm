@@ -44,14 +44,14 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual(substance1.drug_classes, ["antiagrégants plaquettaires", "autres médicaments agissant sur l'hémostase"])
 
     def test_interface_drug(self):
-        path = get_path("../pddiansm/pydantic/simple_drugs_test.json")
+        path = get_path("data/simple_drugs_test.json")
         try:
             simple_drugs = pydantic.parse_file_as(List[SimpleDrug], path)
         except ValidationError as e:
             self.fail(e)
 
     def test_interface_output(self):
-        path = get_path("../pddiansm/pydantic/pddis_detected.json")
+        path = get_path("data/pddis_detected.json")
         try:
             api_output = pydantic.parse_file_as(APIoutput, path)
         except ValidationError as e:

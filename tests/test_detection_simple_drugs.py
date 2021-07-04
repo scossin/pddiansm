@@ -19,7 +19,7 @@ def get_pddi_detector_2019():
 
 def get_simple_drugs_example():
     # load a simple_drugs object
-    path = get_path("../pddiansm/pydantic/simple_drugs_test.json")
+    path = get_path("data/simple_drugs_test.json")
     simple_drugs = pydantic.parse_file_as(List[SimpleDrug], path)
     return simple_drugs
 
@@ -45,7 +45,7 @@ class MyTestCase(unittest.TestCase):
         # the PDDI detector
         pddi_detector = get_pddi_detector_2019()
         # load a simple_drugs object
-        path = get_path("../pddiansm/pydantic/simple_drugs_test.json")
+        path = get_path("data/simple_drugs_test.json")
         simple_drugs: List[SimpleDrug] = pydantic.parse_file_as(List[SimpleDrug], path)
         # change the first substance
         simple_drugs[0].substances[0].substance = "opium"
