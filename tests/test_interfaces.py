@@ -6,9 +6,9 @@ import importlib.resources as pkg_resources
 import pydantic
 from pydantic import ValidationError
 
-from pddiansm.interfaces.interfaces_input import SimpleDrug
-from pddiansm.interfaces.interfaces_output import APIoutput
-from pddiansm.interfaces.interfaces_pddi import PDDI, SubstanceThesaurus
+from pddiansm.pydantic.interfaces_input import SimpleDrug
+from pddiansm.pydantic.interfaces_output import APIoutput
+from pddiansm.pydantic.interfaces_pddi import PDDI, SubstanceThesaurus
 from pddiansm.thesaurus.ThesauriFiles import ThesauriFiles
 
 
@@ -48,14 +48,14 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual(substance1.drug_classes, ["antiagrégants plaquettaires", "autres médicaments agissant sur l'hémostase"])
 
     def test_interface_drug(self):
-        path = get_path("../pddiansm/interfaces/simple_drugs_test.json")
+        path = get_path("../pddiansm/pydantic/simple_drugs_test.json")
         try:
             simple_drugs = pydantic.parse_file_as(List[SimpleDrug], path)
         except ValidationError as e:
             self.fail(e)
 
     def test_interface_output(self):
-        path = get_path("../pddiansm/interfaces/pddis_detected.json")
+        path = get_path("../pddiansm/pydantic/pddis_detected.json")
         try:
             api_output = pydantic.parse_file_as(APIoutput, path)
         except ValidationError as e:

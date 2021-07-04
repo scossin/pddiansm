@@ -3,7 +3,7 @@ from typing import List
 
 from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
 from pddiansm.detector.PDDIdetected import PDDIdetected
-from pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.thesaurus.Thesauri import Thesauri
 
 

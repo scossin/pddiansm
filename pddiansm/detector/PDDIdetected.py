@@ -1,5 +1,5 @@
-from pddiansm.interfaces.interfaces_output import PDDIdetected
-from pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.pydantic.interfaces_output import PDDIdetected
+from pddiansm.pydantic.interfaces_pddi import PDDI
 
 
 class PDDIdetected:

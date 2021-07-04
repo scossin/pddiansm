@@ -5,7 +5,7 @@ import pydantic
 
 from pddiansm.detector.PDDIansmDetectorSimpleDrugs import PDDIansmDetectorSimpleDrugs
 from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
-from pddiansm.interfaces.interfaces_input import SimpleDrug
+from pddiansm.pydantic.interfaces_input import SimpleDrug
 from pddiansm.thesaurus.Thesauri import Thesauri
 from tests.test_interfaces import get_path
 
@@ -21,7 +21,7 @@ class MyTestCase(unittest.TestCase):
         # the PDDI detector
         pddi_detector = get_pddi_detector_2019()
         # load a simple_drugs object
-        path = get_path("../pddiansm/interfaces/simple_drugs_test.json")
+        path = get_path("../pddiansm/pydantic/simple_drugs_test.json")
         simple_drugs = pydantic.parse_file_as(List[SimpleDrug], path)
         # PDDIs detection
         pddis: List[PDDIsimpleDrugsDetected] = pddi_detector.detect_pddi_multiple_drugs(simple_drugs)
@@ -31,7 +31,7 @@ class MyTestCase(unittest.TestCase):
         # the PDDI detector
         pddi_detector = get_pddi_detector_2019()
         # load a simple_drugs object
-        path = get_path("../pddiansm/interfaces/simple_drugs_test.json")
+        path = get_path("../pddiansm/pydantic/simple_drugs_test.json")
         simple_drugs: List[SimpleDrug] = pydantic.parse_file_as(List[SimpleDrug], path)
         # change the first substance
         simple_drugs[0].substances[0].substance = "opium"

@@ -1,6 +1,6 @@
 from typing import Dict
 
-from pddiansm.interfaces.interfaces_pddi import SubstanceThesaurus, ClassThesaurus
+from pddiansm.pydantic.interfaces_pddi import SubstanceThesaurus, ClassThesaurus
 from pddiansm.mapper.IMapper import IMapper
 from pddiansm.thesaurus.Thesaurus import Thesaurus
 from pddiansm.thesaurus.ThesaurusEntries import ThesaurusEntries

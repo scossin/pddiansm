@@ -2,7 +2,7 @@ from typing import List
 
 import pydantic
 
-from pddiansm.interfaces.interfaces_pddi import PDDI, SubstanceThesaurus
+from pddiansm.pydantic.interfaces_pddi import PDDI, SubstanceThesaurus
 from pddiansm.thesaurus.ThesaurusFiles import ThesaurusFiles
 from pddiansm.utils.normalize_string import normalize_string
 

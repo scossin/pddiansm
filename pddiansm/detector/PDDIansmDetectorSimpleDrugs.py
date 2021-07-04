@@ -2,8 +2,8 @@ from typing import List
 
 from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
 from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
-from pddiansm.interfaces.interfaces_input import SimpleDrug
-from pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.pydantic.interfaces_input import SimpleDrug
+from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.thesaurus.Thesaurus import Thesaurus
 
 

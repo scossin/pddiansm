@@ -2,7 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-from pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.pydantic.interfaces_pddi import PDDI
 
 
 class PDDIdetected(BaseModel):

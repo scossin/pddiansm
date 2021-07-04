@@ -2,7 +2,7 @@ from typing import List
 
 from pddiansm.detector.PDDIdetected import PDDIdetected
 from pddiansm.detector.PDDIdetector import PDDIdetector
-from pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.mapper.IMapper import IMapper
 from pddiansm.mapper.StringMapper import StringMapper
 from pddiansm.thesaurus.Thesaurus import Thesaurus

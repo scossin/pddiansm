@@ -1,5 +1,5 @@
-from pddiansm.interfaces.interfaces_input import SimpleDrug
-from pddiansm.interfaces.interfaces_pddi import PDDI
+from pddiansm.pydantic.interfaces_input import SimpleDrug
+from pddiansm.pydantic.interfaces_pddi import PDDI
 
 
 class PDDIsimpleDrugsDetected:
