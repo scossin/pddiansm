@@ -6,12 +6,12 @@ import pydantic
 from pddiansm.detector.PDDIansmDetectorSimpleDrugs import PDDIansmDetectorSimpleDrugs
 from pddiansm.detector.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
 from pddiansm.pydantic.interfaces_input import SimpleDrug
-from pddiansm.thesaurus.Thesauri import Thesauri
+from pddiansm.thesaurus.ThesauriJson import ThesauriJson
 from tests.test_interfaces import get_path
 
 
 def get_pddi_detector_2019():
-    thesaurus = Thesauri().get_thesaurus("2019_09")
+    thesaurus = ThesauriJson().get_thesaurus("2019_09")
     pddi_detector = PDDIansmDetectorSimpleDrugs(thesaurus)
     return pddi_detector
 

@@ -4,11 +4,12 @@ Scripts to detect Potential Drug Drug Interactions (PDDI) according to the Frenc
 ## Examples
 
 ### PDDI between two substances:
+
 ```python
 from pddiansm.detector.PDDIansmDetector import PDDIansmDetector
-from pddiansm.thesaurus.Thesauri import Thesauri
+from pddiansm.thesaurus.ThesauriJson import ThesauriJson
 
-thesaurus = Thesauri().get_thesaurus("2019_09") # thesauri.print_available_thesaurus_version()
+thesaurus = ThesauriJson().get_thesaurus("2019_09")  # thesauri.print_available_thesaurus_version()
 pddi_detector = PDDIansmDetector(thesaurus)
 substance1 = "domperidone"
 substance2 = "escitalopram"

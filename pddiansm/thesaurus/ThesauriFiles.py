@@ -25,9 +25,6 @@ class ThesauriFiles(metaclass=Singleton):
         versions = [thesaurus_files.thesaurus_version for thesaurus_files in self.thesauri_files]
         return sorted(versions)
 
-    def print_available_thesaurus_version(self) -> None:
-        [print(version) for version in self.get_available_thesaurus_version()]
-
     @classmethod
     def __load_thesauri_files(cls) -> List[ThesaurusFiles]:
         package_path = pkg_resources.path("pddiansm", "data")
