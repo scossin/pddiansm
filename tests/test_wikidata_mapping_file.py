@@ -1,5 +1,7 @@
 import unittest
+from typing import List
 
+from pddiansm import pydantic
 from pddiansm.mapper.AvailableIdentifierMappers import AvailableSubstanceMapping
 from pddiansm.mapper.ISubstanceMapping import ISubstanceMapping
 
