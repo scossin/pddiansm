@@ -1,10 +1,16 @@
 from typing import List, TextIO
 
-from pddiansm.mapper.ISubstanceMapping import ISubstanceMapping
+from pddiansm.mapper.IMapper import IMapper
 from pddiansm.utils.normalize_string import normalize_string
 
 
-class SubstanceMappingFile(ISubstanceMapping):
+class MappingFile(IMapper):
+    """
+    Load a mapping file containing 2 columns, in this order:
+        1) the name of a molecule or drug_class listed in the thesaurus
+        2) an identifier
+    An identifier can match one to several substance(s) and drug_class(es).
+    """
     def __init__(self, filename: str, sep="\t", header=True, show_warnings=False):
         self.show_warnings = show_warnings
         self.filename = filename
@@ -14,9 +20,9 @@ class SubstanceMappingFile(ISubstanceMapping):
             for line in f:
                 self.__fill_map_identifier_2_moc(line, sep)
 
-    def get_substances_mapped(self, identifier: str) -> List[str]:
+    def get_mocs_mapped(self, identifier: str) -> List[str]:
         """ Overrides """
-        return self.map_identifier_2_moc.get(identifier, ISubstanceMapping.DEFAULT_IF_IDENTIFIER_NOT_MAPPED)
+        return self.map_identifier_2_moc.get(identifier, IMapper.DEFAULT_IF_IDENTIFIER_NOT_MAPPED)
 
     def __fill_map_identifier_2_moc(self, line: str, sep: str):
         columns: List[str] = line.split(sep)

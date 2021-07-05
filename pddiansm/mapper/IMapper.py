@@ -1,10 +1,13 @@
-from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
+from typing import List
 
 
 class IMapper:
-    def search_moc(self, string: str) -> IThesaurusEntries:
+    DEFAULT_IF_IDENTIFIER_NOT_MAPPED = [""]
+
+    def get_mocs_mapped(self, identifier: str) -> List[str]:
         """
-        :param string: a molecule, drug_class, or identifier
-        :return: thesaurus entries containing a list of substances and drug classes to search for PDDIs
+
+        :param identifier: an identifier that is mapped to molecule(s) / drug_classe(s)
+        :return: substance(s) or drug_class(es) to be searched
         """
         pass

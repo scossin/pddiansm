@@ -1,26 +1,22 @@
 from typing import Dict
 
 from pddiansm.pydantic.interfaces_pddi import SubstanceThesaurus, ClassThesaurus
-from pddiansm.mapper.IMapper import IMapper
+from pddiansm.thesaurus.ISearchThesEntries import ISearchThesEntries
 from pddiansm.thesaurus.IThesaurus import IThesaurus
-from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
 from pddiansm.thesaurus.ThesaurusEntriesImp import ThesaurusEntriesImp
 from pddiansm.utils.normalize_string import normalize_string
 
 
-class StringMapper(IMapper):
+class SearchThesEntries(ISearchThesEntries):
 
     def __init__(self, thesaurus: IThesaurus):
+        super().__init__()
         self.thesaurus: IThesaurus = thesaurus
         self.hashmap_substances: Dict[str, SubstanceThesaurus] = self.__create_hashmap_substances()
         self.hashmap_drug_classes: Dict[str, ClassThesaurus] = self.__create_hashmap_drug_classes()
 
-    def search_moc(self, string: str) -> IThesaurusEntries:
-        """ Overrides :func:`IMapper.search_moc()`"""
-        return self.search_moc_by_string(string)
-
-    def search_moc_by_string(self, moc: str) -> ThesaurusEntriesImp:
-        """
+    def search_moc(self, moc: str) -> ThesaurusEntriesImp:
+        """ Overrides
         Find substances and drug_classes matching this moc by string matching
         :param moc: a molecule or a drug_class
         """

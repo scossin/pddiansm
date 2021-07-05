@@ -1,10 +1,11 @@
-from typing import List
+from typing import List, Dict
 
 from pddiansm.detected.PDDIdetected import PDDIdetected
 from pddiansm.detector.IPDDIdetector import IPDDIdetector
-from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.mapper.IMapper import IMapper
-from pddiansm.mapper.StringMapper import StringMapper
+from pddiansm.pydantic.interfaces_pddi import PDDI
+from pddiansm.thesaurus.ISearchThesEntries import ISearchThesEntries
+from pddiansm.thesaurus.SearchThesEntries import SearchThesEntries
 from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
 from pddiansm.thesaurus.ThesaurusJson import IThesaurus
 
@@ -16,15 +17,14 @@ class PDDIthesaurusDetector(IPDDIdetector):
         :param version: a ANSM thesaurus version
         """
         self.thesaurus: IThesaurus = thesaurus
-        self.string_mapper: StringMapper = StringMapper(thesaurus)
-        self.mapper: IMapper = self.string_mapper  # default mapper
-        self.indexed_entries = {}  # thesaurus molecules and classes are indexed for fast look-up
+        self.search_thes_entries: ISearchThesEntries = SearchThesEntries(thesaurus)
+        self.indexed_entries: Dict[Dict[str]] = {}  # thesaurus molecules and classes are indexed for fast look-up
         self.__create_indexed_entries(thesaurus.get_pddis())
 
     def detect_pddi(self, string1: str, string2: str) -> List[PDDIdetected]:
         """ Overrides """
-        thesaurus_entries_1: IThesaurusEntries = self.mapper.search_moc(string1)
-        thesaurus_entries_2: IThesaurusEntries = self.mapper.search_moc(string2)
+        thesaurus_entries_1: IThesaurusEntries = self.search_thes_entries.search_string(string1)
+        thesaurus_entries_2: IThesaurusEntries = self.search_thes_entries.search_string(string2)
         pddis: List[PDDI] = self._search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
         pddis_detected: List[PDDIdetected] = [
             PDDIdetected(pddi, string1, string2, self.thesaurus.get_thesaurus_version())
@@ -33,7 +33,7 @@ class PDDIthesaurusDetector(IPDDIdetector):
         return pddis_detected
 
     def set_mapper(self, mapper: IMapper) -> None:
-        self.mapper = mapper
+        self.search_thes_entries.set_mapper(mapper)
 
     def _search_pddi_thesaurus(self, thesaurus_entries_1: IThesaurusEntries,
                                thesaurus_entries_2: IThesaurusEntries) -> List[PDDI]:

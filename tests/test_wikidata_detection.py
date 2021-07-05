@@ -6,7 +6,6 @@ import pydantic
 from pddiansm.detected.PDDIdetected import PDDIdetected
 from pddiansm.detected.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
 from pddiansm.mapper.AvailableIdentifierMappers import AvailableSubstanceMapping
-from pddiansm.mapper.IdentifierMapper import IdentifierMapper
 from tests.test_detection import get_pddi_thesaurus_detector_2019
 from pddiansm.pydantic.interfaces_input import SimpleDrug
 from tests.test_detection_simple_drugs import get_pddi_simple_drugs_detector_2019
@@ -21,10 +20,8 @@ def get_simple_drugs_example():
 
 
 def set_wikidata_mapper(pddi_detector):
-    substance_mapping = AvailableSubstanceMapping.Wikidata.value
-    string_mapper = pddi_detector.string_mapper
-    new_mapper = IdentifierMapper(string_mapper, substance_mapping)
-    pddi_detector.set_mapper(new_mapper)
+    wikidata_mapper = AvailableSubstanceMapping.Wikidata.value
+    pddi_detector.set_mapper(wikidata_mapper)
 
 
 class MyTestCase(unittest.TestCase):
