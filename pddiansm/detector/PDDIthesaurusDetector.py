@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Union
 
 from pddiansm.detected.PDDIdetected import PDDIdetected
 from pddiansm.detector.IPDDIdetector import IPDDIdetector
@@ -18,7 +18,8 @@ class PDDIthesaurusDetector(IPDDIdetector):
         """
         self.thesaurus: IThesaurus = thesaurus
         self.search_thes_entries: ISearchThesEntries = SearchThesEntries(thesaurus)
-        self.indexed_entries: Dict[Dict[str]] = {}  # thesaurus molecules and classes are indexed for fast look-up
+        # thesaurus molecules and classes are indexed for fast look-up. first str is moc1, second str is moc2
+        self.indexed_entries: Dict[str, Dict[str, PDDI]] = {}
         self.__create_indexed_entries(thesaurus.get_pddis())
 
     def detect_pddi(self, string1: str, string2: str) -> List[PDDIdetected]:
@@ -43,13 +44,13 @@ class PDDIthesaurusDetector(IPDDIdetector):
         """
         mol_and_classes1 = thesaurus_entries_1.get_list_of_substance_and_classes()
         mol_and_classes2 = thesaurus_entries_2.get_list_of_substance_and_classes()
-        pddis: List[PDDI] = [self._search_pddi_in_index(molecule_or_class1, molecule_or_class2)
-                             for molecule_or_class1 in mol_and_classes1
-                             for molecule_or_class2 in mol_and_classes2]
-        pddis: List[PDDI] = self.__remove_none_values(pddis)
-        return pddis
+        pddis: List[Union[PDDI, None]] = [self._search_pddi_in_index(molecule_or_class1, molecule_or_class2)
+                                          for molecule_or_class1 in mol_and_classes1
+                                          for molecule_or_class2 in mol_and_classes2]
+        pddis_filtered: List[PDDI] = self.__remove_none_values(pddis)
+        return pddis_filtered
 
-    def _search_pddi_in_index(self, molecule_or_class1: str, molecule_or_class2: str) -> PDDI:
+    def _search_pddi_in_index(self, molecule_or_class1: str, molecule_or_class2: str) -> Union[PDDI, None]:
         moc1_interact_with = self.indexed_entries.get(molecule_or_class1, {})
         pddi = moc1_interact_with.get(molecule_or_class2, None)
         return pddi

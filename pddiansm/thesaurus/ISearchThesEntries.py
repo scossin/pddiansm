@@ -31,7 +31,7 @@ class ISearchThesEntries:
 
     def search_mocs(self, mocs: List[str]) -> IThesaurusEntries:
         muliple_thesaurus_entries: List[IThesaurusEntries] = [self.search_moc(moc) for moc in mocs]
-        thesaurus_entries_collapsed: IThesaurusEntries = ThesaurusEntriesCollapsed()
+        thesaurus_entries_collapsed: ThesaurusEntriesCollapsed = ThesaurusEntriesCollapsed()
         for thesaurus_entries in muliple_thesaurus_entries:
             for moc in thesaurus_entries.get_list_of_substance_and_classes():
                 thesaurus_entries_collapsed.add_moc(moc)

@@ -7,9 +7,7 @@ import pydantic
 from pydantic import ValidationError
 
 from pddiansm.pydantic.interfaces_input import SimpleDrug
-from pddiansm.pydantic.interfaces_output import APIoutput
 from pddiansm.pydantic.interfaces_pddi import PDDI, SubstanceThesaurus
-from pddiansm.thesaurus.ThesauriFiles import ThesauriFiles
 
 
 def get_path(filename: str) -> str:
@@ -47,13 +45,6 @@ class MyTestCase(unittest.TestCase):
         path = get_path("data/simple_drugs_test.json")
         try:
             simple_drugs = pydantic.parse_file_as(List[SimpleDrug], path)
-        except ValidationError as e:
-            self.fail(e)
-
-    def test_interface_output(self):
-        path = get_path("data/pddis_detected.json")
-        try:
-            api_output = pydantic.parse_file_as(APIoutput, path)
         except ValidationError as e:
             self.fail(e)
 

@@ -15,4 +15,5 @@ class IThesauri:
         pass
 
     def print_available_thesaurus_version(self) -> None:
-        [print(version) for version in self.get_available_thesaurus_version()]
+        for version in self.get_available_thesaurus_version():
+            print(version)

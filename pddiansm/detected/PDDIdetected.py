@@ -1,4 +1,3 @@
-from pddiansm.pydantic.interfaces_output import PDDIdetected
 from pddiansm.pydantic.interfaces_pddi import PDDI
 
 
@@ -8,7 +7,7 @@ class PDDIdetected:
         self.moc1 = molecule_or_class1
         self.moc2 = molecule_or_class2
         self.thesaurus_version = thesaurus_version
-        self.id = PDDIdetected.get_pddi_detected_id(self)
+        self.id = get_pddi_detected_id(self)
 
     def __str__(self):
         return f"{self.moc1} (from '{self.pddi.main_drug}') can interact with {self.moc2} (from '{self.pddi.plus_drug}')" \
@@ -30,7 +29,7 @@ class PDDIdetected:
                             "info": severity_info.info}
                            for severity_info in self.severity_levels]
         return {
-            "pddi_id": PDDIdetected.get_pddi_detected_id(self),
+            "pddi_id": get_pddi_detected_id(self),
             "main_drug": self.main_drug,
             "between_main_and_plus_drug": self.between_main_and_plus_drug,
             "plus_drug": self.plus_drug,
@@ -44,15 +43,6 @@ class PDDIdetected:
         main_entries = [pddi.main_drug, pddi.plus_drug]
         main_entries = sorted(main_entries)
         return ";".join(main_entries)
-
-    @classmethod
-    def get_pddi_detected_id(cls, pddi_detected: PDDIdetected):
-        pddi_id = cls.get_pddi_id(pddi_detected.pddi)
-        mocs = [pddi_detected.moc1, pddi_detected.moc2]
-        mocs = sorted(mocs)
-        mocs_id = ";".join(mocs)
-        pddi_detected_id = pddi_id + mocs_id
-        return pddi_detected_id
 
     @property
     def main_drug(self):
@@ -77,3 +67,12 @@ class PDDIdetected:
     @property
     def description(self):
         return self.pddi.description
+
+
+def get_pddi_detected_id(pddi_detected: PDDIdetected) -> str:
+    pddi_id = PDDIdetected.get_pddi_id(pddi_detected.pddi)
+    mocs = [pddi_detected.moc1, pddi_detected.moc2]
+    mocs = sorted(mocs)
+    mocs_id = ";".join(mocs)
+    pddi_detected_id = pddi_id + mocs_id
+    return pddi_detected_id

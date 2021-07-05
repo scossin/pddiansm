@@ -2,7 +2,7 @@ import unidecode
 
 
 def _remove_accents(string: str) -> str:
-    unaccented_string = unidecode.unidecode(string)
+    unaccented_string: str = unidecode.unidecode(string)
     return unaccented_string
 
 

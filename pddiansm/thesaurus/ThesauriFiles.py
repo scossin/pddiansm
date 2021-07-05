@@ -29,7 +29,7 @@ class ThesauriFiles(metaclass=Singleton):
     def __load_thesauri_files(cls) -> List[ThesaurusFiles]:
         package_path = pkg_resources.path("pddiansm", "data")
         with package_path as path:
-            thesauri_files = []
+            thesauri_files: List[ThesaurusFiles] = []
             for root, subdirs, files in os.walk(path):
                 json_files = list(filter(cls._is_a_json_file, files))
                 cls.__create_and_add_thesaurus_files(root, json_files, thesauri_files)
