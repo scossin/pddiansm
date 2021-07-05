@@ -13,7 +13,7 @@ def get_package_mapping_file(filename) -> str:
 
 
 def get_wikidata_mapping() -> IMapper:
-    filename = "ansm_substances_mappings.tsv"
+    filename = "wikidata_mappings.tsv"
     wikidata_file = get_package_mapping_file(filename)
     wikipedia_mapping: IMapper = MappingFile(wikidata_file)
     return wikipedia_mapping
