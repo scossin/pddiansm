@@ -61,8 +61,6 @@ class MyTestCase(unittest.TestCase):
         pddi_detector = PDDIsimpleDrugsDetector(thesaurus)
         pddis_detected = pddi_detector.detect_pddi_multiple_drugs(simple_drugs)
         self.assertTrue(len(pddis_detected), 1)
-        for pddi_detected in pddis_detected:
-            print(pddi_detected)
 
 
 if __name__ == '__main__':

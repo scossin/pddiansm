@@ -19,5 +19,13 @@ def get_wikidata_mapping() -> IMapper:
     return wikipedia_mapping
 
 
+def get_rxnorm_mapping() -> IMapper:
+    filename = "rxnorm_mappings.tsv"
+    rxnorm_file = get_package_mapping_file(filename)
+    wikipedia_mapping: IMapper = MappingFile(rxnorm_file)
+    return wikipedia_mapping
+
+
 class AvailableSubstanceMapping(enum.Enum):
     Wikidata = get_wikidata_mapping()
+    RxNorm = get_rxnorm_mapping()
