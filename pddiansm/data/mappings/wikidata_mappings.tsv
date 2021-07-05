@@ -577,7 +577,7 @@ imatinib	Q177094
 imidapril	Q1041804
 imipenem	Q425152
 imipramine	Q58396
-immunoglobuline de lapin anti-lymphocyte t humain	
+immunoglobuline de lapin anti-lymphocyte t humain	NA
 immunoglobulines equines antilymphocyte humain	NA
 indacatérol	Q425654
 indapamide	Q1078392
@@ -1179,7 +1179,7 @@ tiratricol	Q7809151
 tirofiban	Q415366
 tobramycine	Q1758380
 tocilizumab	Q425154
-tolbutamide	NA
+tolbutamide	Q414275
 tolcapone	Q413840
 toloxatone	Q3530618
 tolterodine	Q424312
@@ -1250,14 +1250,14 @@ vindesine	Q416660
 vinflunine	Q2195393
 vinorelbine	Q420532
 vinylbital	Q410157
-virus de la fievre jaune	NA
-virus de la rougeole	NA
-virus de la varicelle	NA
-virus des oreillons	NA
-virus rougeoleux	NA
-virus rubeoleux	NA
-virus varicelle-zona	NA
-virus vivant atténué de la grippe	NA
+virus de la fievre jaune	Q8051876
+virus de la rougeole	Q6804161
+virus de la varicelle	Q2721987
+virus des oreillons	Q6935478
+virus rougeoleux	Q6804161
+virus rubeoleux	Q7375928
+virus varicelle-zona	Q2721987
+virus vivant atténué de la grippe	Q383260
 vismodégib	Q2070286
 vitamine a	Q424976
 voriconazole	Q412236
