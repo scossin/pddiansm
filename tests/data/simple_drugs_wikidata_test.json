@@ -1,24 +1,10 @@
 [
         {
             "id": 1,
-            "substances": [
-                {
-                    "substance": "Q165399"
-                }
-            ]
+            "substances": ["Q165399"]
         },
         {
             "id": 2,
-            "substances": [
-                {
-                    "substance": "Q2745425"
-                },
-                {
-                    "substance": "Q326224"
-                },
-                {
-                    "substance": "Q27270876"
-                }
-            ]
+            "substances": ["Q2745425", "Q326224", "Q27270876"]
         }
     ]

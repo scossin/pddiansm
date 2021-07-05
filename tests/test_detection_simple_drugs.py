@@ -48,10 +48,21 @@ class MyTestCase(unittest.TestCase):
         path = get_path("data/simple_drugs_test.json")
         simple_drugs: List[SimpleDrug] = pydantic.parse_file_as(List[SimpleDrug], path)
         # change the first substance
-        simple_drugs[0].substances[0].substance = "opium"
+        simple_drugs[0].substances[0] = "opium"
         # PDDIs detection
         pddis: List[PDDIsimpleDrugsDetected] = pddi_detector.detect_pddi_multiple_drugs(simple_drugs)
         self.assertEqual(len(pddis), 0)
+
+    def test_detect_simple_drug_same_drug(self):
+        simple_drug1 = SimpleDrug(id=1, substances=["colchicine", "opium", "tiemonium"])
+        simple_drug2 = SimpleDrug(id=2, substances=["azithromycine"])
+        simple_drugs = [simple_drug1, simple_drug2]
+        thesaurus: IThesaurus = ThesauriJson().get_thesaurus("2019_09")
+        pddi_detector = PDDIsimpleDrugsDetector(thesaurus)
+        pddis_detected = pddi_detector.detect_pddi_multiple_drugs(simple_drugs)
+        self.assertTrue(len(pddis_detected), 1)
+        for pddi_detected in pddis_detected:
+            print(pddi_detected)
 
 
 if __name__ == '__main__':

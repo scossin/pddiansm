@@ -26,10 +26,9 @@ class PDDIsimpleDrugsDetector(PDDIthesaurusDetector):
     def detect_pddi_two_drugs(self, drug1: SimpleDrug, drug2: SimpleDrug) -> List[PDDIsimpleDrugsDetected]:
         # O(n!): if one drug has 3 substances and the other 2 substances, there are eventually 3*2 = 6 pddis
         pddis_drug_detected: List[PDDIsimpleDrugsDetected] = []
-        for i_1, substance_dosage1 in enumerate(drug1.substances):
-            for i_2, substance_dosage2 in enumerate(drug2.substances):
-                pddis_detected: List[PDDIdetected] = self.detect_pddi(substance_dosage1.substance,
-                                                                      substance_dosage2.substance)
+        for i_1, substance1 in enumerate(drug1.substances):
+            for i_2, substance2 in enumerate(drug2.substances):
+                pddis_detected: List[PDDIdetected] = self.detect_pddi(substance1, substance2)
                 self.__add_pddis_detected(pddis_drug_detected, pddis_detected, drug1, drug2)
         return pddis_drug_detected
 
