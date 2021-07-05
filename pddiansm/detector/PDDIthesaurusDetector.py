@@ -27,9 +27,8 @@ class PDDIthesaurusDetector(IPDDIdetector):
         thesaurus_entries_1: IThesaurusEntries = self.search_thes_entries.search_string(string1)
         thesaurus_entries_2: IThesaurusEntries = self.search_thes_entries.search_string(string2)
         pddis: List[PDDI] = self._search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
-        pddis_detected: List[PDDIdetected] = [
-            PDDIdetected(pddi, string1, string2, self.thesaurus.get_thesaurus_version())
-            for pddi in pddis]
+        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, string1, string2, self.thesaurus.get_thesaurus_version())
+                                              for pddi in pddis]
         pddis_detected = self._remove_duplicates(pddis_detected)
         return pddis_detected
 
@@ -72,7 +71,9 @@ class PDDIthesaurusDetector(IPDDIdetector):
 
     def __add_pddi(self, pddi):
         self.__add_entry_in_index(pddi.main_drug, pddi.plus_drug, pddi)
-        self.__add_entry_in_index(pddi.plus_drug, pddi.main_drug, pddi)
+        # there is no need to add the "mirror" PDDI because the thesaurus already repeats information
+        # The commutative property holds without adding this line:
+        # self.__add_entry_in_index(pddi.plus_drug, pddi.main_drug, pddi)
 
     def __add_entry_in_index(self, molecule_or_class1: str, molecule_or_class2: str, pddi: PDDI):
         if molecule_or_class1 not in self.indexed_entries:
