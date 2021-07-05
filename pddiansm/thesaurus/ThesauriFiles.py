@@ -1,6 +1,6 @@
 import os
 import importlib.resources as pkg_resources
-from typing import List
+from typing import List, Union
 
 from pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
 from pddiansm.thesaurus.ThesaurusFiles import ThesaurusFiles
@@ -32,21 +32,19 @@ class ThesauriFiles(metaclass=Singleton):
             thesauri_files = []
             for root, subdirs, files in os.walk(path):
                 json_files = list(filter(cls._is_a_json_file, files))
-                new_thesaurus_files = cls.__create_thesaurus_files(root, json_files)
-                thesauri_files.append(new_thesaurus_files)
-            thesauri_files: List[ThesaurusFiles] = [thesaurus_files for thesaurus_files in thesauri_files
-                                                    if thesaurus_files is not None]
-            [thesaurus_files.check_files() for thesaurus_files in thesauri_files]
+                cls.__create_and_add_thesaurus_files(root, json_files, thesauri_files)
             thesauri_files = sorted(thesauri_files, key=lambda thesaurus_file: thesaurus_file.thesaurus_version)
             return thesauri_files
 
     @classmethod
-    def __create_thesaurus_files(cls, root, json_files) -> ThesaurusFiles:
+    def __create_and_add_thesaurus_files(cls, root: str, json_files: List[str],
+                                         thesauri_files: List[ThesaurusFiles]) -> None:
         if len(json_files) == 0:
-            return None
-        thesaurus_file = ThesaurusFiles(root)
-        [thesaurus_file.add_json_file(json_file) for json_file in json_files]
-        return thesaurus_file
+            return
+        thesaurus_files = ThesaurusFiles(root)
+        [thesaurus_files.add_json_file(json_file) for json_file in json_files]
+        thesaurus_files.check_files()
+        thesauri_files.append(thesaurus_files)
 
     @classmethod
     def _is_a_json_file(cls, file: str):
