@@ -1,15 +1,18 @@
 from pddiansm.pydantic.interfaces_pddi import PDDI
+from pddiansm.thesaurus import IThesaurusEntriesFound
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 
 
 class PDDIdetected:
-    def __init__(self, pddi: PDDI, molecule_or_class1: str, molecule_or_class2: str, thesaurus: IThesaurus):
+    def __init__(self, pddi: PDDI, thesaurus_entries_1: IThesaurusEntriesFound,
+                 thesaurus_entries_2: IThesaurusEntriesFound, thesaurus: IThesaurus):
         self.pddi = pddi
-        self.moc1 = molecule_or_class1
-        self.moc2 = molecule_or_class2
+        self.moc1 = thesaurus_entries_1.get_searched_string()
+        self.moc2 = thesaurus_entries_2.get_searched_string()
         self.thesaurus: IThesaurus = thesaurus
         self.id = get_pddi_detected_id(self)
-        self.mocs_belong_to_plus_and_main_drugs = self.__are_mocs_belonging_to_both_entries()
+        self.mocs_belong_to_plus_and_main_drugs = self.__are_mocs_belonging_to_both_entries(thesaurus_entries_1,
+                                                                                            thesaurus_entries_2)
         # Why we need "mocs_belong_to_both_entries" is a bit tricky
         # When we search a PDDI between 2 molecules (mol1, mol2), the order doesn't matter
         # which means pddi(mol1, mol2) equals pddi(mol2, mol1) ; to remove duplicate we can use set()
@@ -75,21 +78,21 @@ class PDDIdetected:
         moc1_and_moc2 = f"{moc1}(or {moc2})"
         return moc1_and_moc2
 
-    def __are_mocs_belonging_to_both_entries(self) -> bool:
+    def __are_mocs_belonging_to_both_entries(self, thesaurus_entries1, thesaurus_entries2) -> bool:
         if self.__mols_are_the_same():
             return True
-        if self.mol1_belongs_to_plus_drug() and self.mol2_belongs_to_main_drug():
+        if self.mol1_belongs_to_plus_drug(thesaurus_entries2) and self.mol2_belongs_to_main_drug(thesaurus_entries1):
             return True
         return False
 
     def __mols_are_the_same(self) -> bool:
         return self.moc1 == self.moc2
 
-    def mol1_belongs_to_plus_drug(self) -> bool:
-        return self.thesaurus.substance_belongs_to_drug_class(self.moc1, self.pddi.plus_drug)
+    def mol1_belongs_to_plus_drug(self, thesaurus_entries1: IThesaurusEntriesFound) -> bool:
+        return self.plus_drug in thesaurus_entries1.get_drug_classes()
 
-    def mol2_belongs_to_main_drug(self) -> bool:
-        return self.thesaurus.substance_belongs_to_drug_class(self.moc2, self.pddi.main_drug)
+    def mol2_belongs_to_main_drug(self, thesaurus_entries2: IThesaurusEntriesFound) -> bool:
+        return self.main_drug in thesaurus_entries2.get_drug_classes()
 
     @classmethod
     def get_pddi_id(cls, pddi: PDDI):

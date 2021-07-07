@@ -1,22 +1,22 @@
 from typing import List
 
-from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
+from pddiansm.thesaurus.IThesaurusEntriesFound import IThesaurusEntriesFound
 
 
-class ThesaurusEntriesImp(IThesaurusEntries):
-    def __init__(self, search_moc):
+class ThesaurusEntriesImp(IThesaurusEntriesFound):
+    def __init__(self, searched_string):
+        super().__init__(searched_string)
         self.substances = []
         self.drug_classes = []
-        self.search_moc = search_moc
 
-    def add_substance(self, substance: str):
+    def add_substance(self, substance: str) -> None:
         self.substances.append(substance)
 
-    def add_drug_class(self, drug_class):
+    def add_drug_class(self, drug_class: str) -> None:
         self.drug_classes.append(drug_class)
 
-    def get_list_of_substance_and_classes(self) -> List[str]:
-        """ Overrides """
-        substance_and_classes = list(set(self.substances)) + list(set(self.drug_classes))  # to be sure everything is unique
-        return substance_and_classes
+    def get_substances(self) -> List[str]:
+        return self.substances
 
+    def get_drug_classes(self) -> List[str]:
+        return self.drug_classes

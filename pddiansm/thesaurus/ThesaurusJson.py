@@ -18,9 +18,6 @@ class ThesaurusJson(IThesaurus):
         substance_file = thesaurus_files.get_substance_file_path()
         self.substances_thesaurus: List[SubstanceThesaurus] = ThesaurusJson.load_substances(substance_file)
 
-        self.map_drug_classes_2_substances: Dict[str, List[str]] = {}
-        self.__set_map_drug_classes_2_substances()
-
     def get_pddis(self) -> List[PDDI]:
         """ Overrides """
         return self.pddis
@@ -62,13 +59,3 @@ class ThesaurusJson(IThesaurus):
         for substance_classes in substances_thesaurus:
             substance_classes.substance = normalize_string(substance_classes.substance)
             substance_classes.drug_classes = list(map(normalize_string, substance_classes.drug_classes))
-
-    def __set_map_drug_classes_2_substances(self) -> Dict[str, List[str]]:
-        for substance_thesaurus in self.substances_thesaurus:
-            for drug_class in substance_thesaurus.drug_classes:
-                self.__create_new_entry_if_not_exist(drug_class)
-                self.map_drug_classes_2_substances[drug_class].append(substance_thesaurus.substance)
-
-    def __create_new_entry_if_not_exist(self, drug_class: str) -> None:
-        if drug_class not in self.map_drug_classes_2_substances:
-            self.map_drug_classes_2_substances[drug_class] = []

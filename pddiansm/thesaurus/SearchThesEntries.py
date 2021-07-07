@@ -3,7 +3,7 @@ from typing import Dict
 from pddiansm.pydantic.interfaces_pddi import SubstanceThesaurus, ClassThesaurus
 from pddiansm.thesaurus.ISearchThesEntries import ISearchThesEntries
 from pddiansm.thesaurus.IThesaurus import IThesaurus
-from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
+from pddiansm.thesaurus.IThesaurusEntriesFound import IThesaurusEntriesFound
 from pddiansm.thesaurus.ThesaurusEntriesImp import ThesaurusEntriesImp
 from pddiansm.utils.normalize_string import normalize_string
 
@@ -16,7 +16,7 @@ class SearchThesEntries(ISearchThesEntries):
         self.hashmap_substances: Dict[str, SubstanceThesaurus] = self.__create_hashmap_substances()
         self.hashmap_drug_classes: Dict[str, ClassThesaurus] = self.__create_hashmap_drug_classes()
 
-    def search_moc(self, moc: str) -> IThesaurusEntries:
+    def search_moc(self, moc: str) -> IThesaurusEntriesFound:
         """ Overrides
         Find substances and drug_classes matching this moc by string matching
         :param moc: a molecule or a drug_class

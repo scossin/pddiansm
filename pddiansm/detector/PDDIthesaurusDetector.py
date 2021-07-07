@@ -6,7 +6,7 @@ from pddiansm.mapper.IMapper import IMapper
 from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.thesaurus.ISearchThesEntries import ISearchThesEntries
 from pddiansm.thesaurus.SearchThesEntries import SearchThesEntries
-from pddiansm.thesaurus.IThesaurusEntries import IThesaurusEntries
+from pddiansm.thesaurus.IThesaurusEntriesFound import IThesaurusEntriesFound
 from pddiansm.thesaurus.ThesaurusJson import IThesaurus
 
 
@@ -24,10 +24,10 @@ class PDDIthesaurusDetector(IPDDIdetector):
 
     def detect_pddi(self, string1: str, string2: str) -> List[PDDIdetected]:
         """ Overrides """
-        thesaurus_entries_1: IThesaurusEntries = self.search_thes_entries.search_string(string1)
-        thesaurus_entries_2: IThesaurusEntries = self.search_thes_entries.search_string(string2)
+        thesaurus_entries_1: IThesaurusEntriesFound = self.search_thes_entries.search_string(string1)
+        thesaurus_entries_2: IThesaurusEntriesFound = self.search_thes_entries.search_string(string2)
         pddis: List[PDDI] = self._search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
-        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, string1, string2, self.thesaurus)
+        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, thesaurus_entries_1, thesaurus_entries_2, self.thesaurus)
                                               for pddi in pddis]
         pddis_detected = self._remove_duplicates(pddis_detected)
         return pddis_detected
@@ -35,8 +35,8 @@ class PDDIthesaurusDetector(IPDDIdetector):
     def set_mapper(self, mapper: IMapper) -> None:
         self.search_thes_entries.set_mapper(mapper)
 
-    def _search_pddi_thesaurus(self, thesaurus_entries_1: IThesaurusEntries,
-                               thesaurus_entries_2: IThesaurusEntries) -> List[PDDI]:
+    def _search_pddi_thesaurus(self, thesaurus_entries_1: IThesaurusEntriesFound,
+                               thesaurus_entries_2: IThesaurusEntriesFound) -> List[PDDI]:
         """
         Detect all potential drug drug interactions in the ANSM guidelines document
         given several thesaurus entries (substances or drug_classes)

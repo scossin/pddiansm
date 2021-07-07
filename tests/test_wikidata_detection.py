@@ -33,6 +33,15 @@ class MyTestCase(unittest.TestCase):
         pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(identifier_domperidone, identifier_escitalopram)
         self.assertTrue(len(pddis_detected) == 1)
 
+    def test_mocs_belong_to_plus_and_main_drugs(self):
+        pddi_detector = get_pddi_thesaurus_detector_2019()
+        set_wikidata_mapper(pddi_detector)
+        identifier_domperidone = "Q424238"
+        identifier_escitalopram = "Q423757"
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(identifier_domperidone, identifier_escitalopram)
+        pddi0 = pddis_detected[0]
+        self.assertTrue(pddi0.mocs_belong_to_plus_and_main_drugs)
+
     def test_detection_simple_drugs_wikidata(self):
         pddi_detector = get_pddi_simple_drugs_detector_2019()
         set_wikidata_mapper(pddi_detector)
