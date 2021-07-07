@@ -15,12 +15,12 @@ ThesauriJson().print_available_thesaurus_version()
 thesaurus_version = "2019_09"
 thesaurus = ThesauriJson().get_thesaurus(thesaurus_version) 
 pddi_detector = PDDIthesaurusDetector(thesaurus)
-substance1 = "domperidone"
-substance2 = "escitalopram"
+substance1 = "colchicine"
+substance2 = "azithromycine"
 pddis = pddi_detector.detect_pddi(substance1, substance2)
 for pddi in pddis:
     print(pddi)
-# domperidone (from 'torsadogenes (sauf arsenieux, antiparasitaires, neuroleptiques, methadone...)') can interact with escitalopram (from 'substances susceptibles de donner des torsades de pointes') in thesaurus version 2019_09
+# colchicine (from 'colchicine') can interact with azithromycine (from 'macrolides (sauf spiramycine)') in thesaurus version 2019_09
 ```
 
 ## Check PDDI between two simple drugs:
@@ -33,7 +33,7 @@ from pddiansm.pydantic.interfaces_input import SimpleDrug
 from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.ThesauriJson import ThesauriJson
 
-simple_drug1 = SimpleDrug(id=1, substances=["colchicine", "opium", "tiemonium"])
+simple_drug1 = SimpleDrug(id=1, substances=["opium", "tiemonium", "colchicine"])
 simple_drug2 = SimpleDrug(id=2, substances=["azithromycine"])
 simple_drugs = [simple_drug1, simple_drug2]
 thesaurus: IThesaurus = ThesauriJson().get_thesaurus("2019_09")
@@ -56,15 +56,14 @@ thesaurus = ThesauriJson().get_thesaurus("2019_09")
 pddi_detector = PDDIthesaurusDetector(thesaurus)
 rxnorm_mapper = AvailableSubstanceMapping.RxNorm.value
 pddi_detector.set_mapper(rxnorm_mapper)
-id_rxnorm_domperidone = "3626"
-id_rxnorm_escitalopram = "321988"
-pddis_detected = pddi_detector.detect_pddi(id_rxnorm_domperidone, id_rxnorm_escitalopram)
+id_rxnorm_colchicine = "2683"
+id_rxnorm_azithromycine = "18631"
+pddis_detected = pddi_detector.detect_pddi(id_rxnorm_colchicine, id_rxnorm_azithromycine)
 for pddi in pddis_detected:
     print(pddi)
-# 3626 (from 'torsadogenes (sauf arsenieux, antiparasitaires, neuroleptiques, methadone...)') can interact with 321988 (from 'substances susceptibles de donner des torsades de pointes') in thesaurus version 2019_09
+# 2683 (from 'colchicine') can interact with 18631 (from 'macrolides (sauf spiramycine)') in thesaurus version 2019_09
 ```
 This package contains ANSM substances mappings to Wikidata and RxNorm.
-
 
 ## Tests
 Run all the tests with this command: 
