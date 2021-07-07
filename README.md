@@ -45,7 +45,9 @@ for pddi_detected in pddis_detected:
 ```
 
 ## Check PDDI between two identifiers:
-In case you want to search PDDIs with two identifiers, you need to change the mapper object. For example, between substances: 
+In case you want to search PDDIs with two identifiers, you need to change the mapper object. 
+This package contains mappings to Wikidata and RxNorm.  
+For example, to detect interactions between two RxNorm ingredients: 
 ```python
 from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
 from pddiansm.thesaurus.ThesauriJson import ThesauriJson
@@ -63,7 +65,6 @@ for pddi in pddis_detected:
     print(pddi)
 # 2683 (from 'colchicine') can interact with 18631 (from 'macrolides (sauf spiramycine)') in thesaurus version 2019_09
 ```
-This package contains ANSM substances mappings to Wikidata and RxNorm.
 
 ## Tests
 Run all the tests with this command: 
