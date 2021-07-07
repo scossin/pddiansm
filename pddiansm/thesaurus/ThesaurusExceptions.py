@@ -1,3 +1,2 @@
 class ThesaurusVersionNotFound(Exception):
     pass
-

@@ -27,7 +27,7 @@ class PDDIthesaurusDetector(IPDDIdetector):
         thesaurus_entries_1: IThesaurusEntries = self.search_thes_entries.search_string(string1)
         thesaurus_entries_2: IThesaurusEntries = self.search_thes_entries.search_string(string2)
         pddis: List[PDDI] = self._search_pddi_thesaurus(thesaurus_entries_1, thesaurus_entries_2)
-        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, string1, string2, self.thesaurus.get_thesaurus_version())
+        pddis_detected: List[PDDIdetected] = [PDDIdetected(pddi, string1, string2, self.thesaurus)
                                               for pddi in pddis]
         pddis_detected = self._remove_duplicates(pddis_detected)
         return pddis_detected

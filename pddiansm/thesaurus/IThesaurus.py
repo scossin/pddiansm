@@ -19,6 +19,9 @@ class IThesaurus:
     def get_thesaurus_version(self) -> str:
         pass
 
+    def substance_belongs_to_drug_class(self, substance: str, drug_class: str) -> bool:
+        pass
+
     def get_unique_substances(self):
         substances_list = [substance_thesaurus.substance for substance_thesaurus in self.get_substances_thesaurus()]
         unique_substances = set(substances_list)

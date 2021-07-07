@@ -68,6 +68,34 @@ class MyTestCase(unittest.TestCase):
         pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
         self.assertTrue(len(pddis_detected) == 1)
 
+    def test_mocs_belong_to_plus_and_main_drugs(self):
+        pddi_detector = get_pddi_thesaurus_detector_2019()
+        substance1 = "dompéridone"
+        substance2 = "escitalopram"
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        pddi0 = pddis_detected[0]
+        self.assertTrue(pddi0.mocs_belong_to_plus_and_main_drugs)
+
+    def test_print_when_mocs_belong_to_plus_and_main_drugs(self):
+        pddi_detector = get_pddi_thesaurus_detector_2019()
+        substance1 = "dompéridone"
+        substance2 = "escitalopram"
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        pddi0 = pddis_detected[0]
+        self.assertTrue(pddi0.__str__(),
+                        f"dompéridone(or escitalopram) (from 'substances susceptibles de donner des torsades de pointes') can interact "
+                        f"with escitalopram(or dompéridone) (from 'torsadogenes (sauf arsenieux, antiparasitaires, neuroleptiques, methadone...)') "
+                        f"in thesaurus version 2019_09")
+
+        substance1 = "escitalopram"
+        substance2 = "dompéridone"
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        pddi0 = pddis_detected[0]
+        self.assertTrue(pddi0.__str__(),
+                        f"escitalopram(or dompéridone) (from 'substances susceptibles de donner des torsades de pointes') can interact "
+                        f"with dompéridone(or escitalopram) (from 'torsadogenes (sauf arsenieux, antiparasitaires, neuroleptiques, methadone...)') "
+                        f"in thesaurus version 2019_09")
+
     def test_detection_substance_substance_2(self):
         pddi_detector = get_pddi_thesaurus_detector_2019()
         substance1 = "azithromycine"
