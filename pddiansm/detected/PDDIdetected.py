@@ -48,11 +48,14 @@ class PDDIdetected:
         return {
             "pddi_id": get_pddi_detected_id(self),
             "main_drug": self.main_drug,
+            "moc1": self.moc1,
             "between_main_and_plus_drug": self.between_main_and_plus_drug,
             "plus_drug": self.plus_drug,
+            "moc2": self.moc2,
+            "moc1_moc2_can_be_swapped": self.mocs_belong_to_plus_and_main_drugs,
             "severity_levels": severity_levels,
             "interaction_mechanism": self.interaction_mechanism,
-            "description": self.description
+            "description": self.description,
         }
 
     def __get_moc_from_main_drug(self) -> str:
