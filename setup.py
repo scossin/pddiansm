@@ -19,9 +19,12 @@ from setuptools import setup, find_packages
 with open('README.md') as f:
     readme = f.read()
 
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
 setup(
     name='pddiansm',
-    version='0.1.0',
+    version='0.1.1',
     description='A package to detect potential drug drug interactions (PDDIs) according to the French National Agency for the Medicines and Health Products Safety (ANSM) guidelines',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -31,5 +34,6 @@ setup(
     license="MIT",
     packages=find_packages(exclude=('tests')),
     package_data={'pddiansm': find_files_in_folder('pddiansm/data')},
-    include_package_data=True
+    include_package_data=True,
+    install_requires=required
 )
