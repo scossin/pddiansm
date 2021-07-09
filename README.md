@@ -7,7 +7,7 @@ pip install pddiansm
 ```
 
 ## Code examples
-See [the tutorial](./docs/source/index.rst)
+See [the tutorial](https://github.com/scossin/pddiansm/blob/master/docs/source/index.rst)
 
 ## Tests
 Run all the tests with this command: 
