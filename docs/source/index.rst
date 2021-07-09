@@ -88,7 +88,7 @@ The first step is to select a *thesaurus_version*.
 The ANSM interaction working group publishes guidelines once or twice a year. 
 The PDDIs detected depend on the selected version. 
 
-   ::
+   .. code-block:: python
 
       from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
       from pddiansm.thesaurus.ThesauriJson import ThesauriJson
@@ -108,7 +108,7 @@ The PDDIs detected depend on the selected version.
 
 Since *mivacurium* belongs to the *curares* drug class, the former PDDI is also detected between these two substances:  
    
-   ::
+   .. code-block:: python
 
       substance1 = "colistine"
       substance2 = "mivacurium"
@@ -122,7 +122,7 @@ Since *mivacurium* belongs to the *curares* drug class, the former PDDI is also 
 A simple drug is an object, with an id, containing one to many substances. 
 Marketed drugs can contain one to several substances, the *PDDIsimpleDrugsDetector* class is used to detect PDDIs between substances of different drugs. 
 
-   :: 
+   .. code-block:: python 
       
       from pddiansm.detector.PDDIsimpleDrugsDetector import PDDIsimpleDrugsDetector
       from pddiansm.detected.PDDIsimpleDrugsDetected import PDDIsimpleDrugsDetected
@@ -149,7 +149,7 @@ You need to change the mapper object that maps an identifier to one or many subs
 This package contains mappings to Wikidata and RxNorm. 
 For example, to detect PDDIs between two RxNorm ingredients: 
 
-   ::
+   .. code-block:: python
 
       from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
       from pddiansm.thesaurus.ThesauriJson import ThesauriJson
@@ -172,7 +172,7 @@ Thesaurus object
 ****************
 A thesaurus object contains a list of PDDIs and substances (with their drug classes)
 
-   ::
+   .. code-block:: python
 
       from pddiansm.detector.PDDIthesaurusDetector import PDDIthesaurusDetector
       from pddiansm.thesaurus.ThesauriJson import ThesauriJson
