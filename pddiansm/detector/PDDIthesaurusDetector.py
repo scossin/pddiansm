@@ -14,7 +14,7 @@ class PDDIthesaurusDetector(IPDDIdetector):
     def __init__(self, thesaurus: IThesaurus):
         """
         Detect potential drug drug interactions (PDDI) between two substance or drug_class
-        :param version: a ANSM thesaurus version
+        :param thesaurus: a thesaurus instance containing pddis and substances
         """
         self.thesaurus: IThesaurus = thesaurus
         self.search_thes_entries: ISearchThesEntries = SearchThesEntries(thesaurus)
