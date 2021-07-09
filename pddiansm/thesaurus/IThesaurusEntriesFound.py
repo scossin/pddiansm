@@ -2,8 +2,18 @@ from typing import List
 
 
 class IThesaurusEntriesFound:
+    """
+    The steps to find PDDIs are:
+    1) A string in input that can be mapped to substances and drug classes
+    2) Map this string to a list of string, can be substances or drug classes, with a IMapper
+    3) Match thesaurus entries with IThesaurusEntriesFound (retrieve drug classes of a substance here)
+    4) Search PDDIs with IThesaurusEntriesFound
+    """
 
     def __init__(self, searched_string: str):
+        """
+        :param searched_string: the string (molecule, drug class or identifier) that was searched
+        """
         self.searched_string = searched_string
 
     def get_searched_string(self) -> str:

@@ -3,11 +3,13 @@ from typing import List
 from pddiansm.mapper.DefaultMapper import DefaultMapper
 from pddiansm.mapper.IMapper import IMapper
 from pddiansm.thesaurus.IThesaurusEntriesFound import IThesaurusEntriesFound
-from pddiansm.thesaurus.IThesaurus import IThesaurus
 from pddiansm.thesaurus.ThesaurusEntriesCollapsed import ThesaurusEntriesCollapsed
 
 
 class ISearchThesEntries:
+    """
+    This class searches thesaurus entries (substances or drug classes") before searching PDDI
+    """
 
     def __init__(self):
         self.mapper = DefaultMapper()
