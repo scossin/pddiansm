@@ -8,11 +8,7 @@ from pddiansm.thesaurus.ThesaurusExceptions import ThesaurusVersionNotFound
 class MyTestCase(unittest.TestCase):
     def test_load_thesauri_files(self):
         thesauri_files = ThesauriFiles().thesauri_files
-        self.assertEqual(len(thesauri_files), 1)
-
-    def test_thesauri_files(self):
-        thesauri_files = ThesauriFiles()
-        self.assertEqual(len(thesauri_files.get_thesauri_files()), 1)
+        self.assertEqual(len(thesauri_files), 5)
 
     def test_singleton(self):
         thesauri_files1 = ThesauriFiles()
@@ -23,7 +19,7 @@ class MyTestCase(unittest.TestCase):
         thesauri_files = ThesauriFiles()
         thesaurus_versions = thesauri_files.get_available_thesaurus_version()
         first_version = thesaurus_versions[0]
-        self.assertEqual(first_version, "2019_09")
+        self.assertEqual(first_version, "2016_01")
 
     def test_version_not_found(self):
         thesauri_files = ThesauriFiles()
@@ -32,9 +28,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_found_version(self):
         thesauri_files = ThesauriFiles()
-        thesaurus_versions = thesauri_files.get_available_thesaurus_version()
-        first_version = thesaurus_versions[0]
-        thesaurus_files = thesauri_files.get_thesaurus_files(first_version)
+        thesaurus_files = thesauri_files.get_thesaurus_files("2019_09")
         thesaurus = ThesaurusJson(thesaurus_files)
         self.assertIsInstance(thesaurus.pddis, list)
         self.assertEqual(len(thesaurus.pddis), 3035)
