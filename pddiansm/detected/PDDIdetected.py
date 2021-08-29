@@ -55,7 +55,8 @@ class PDDIdetected:
                             "info": severity_info.info}
                            for severity_info in self.severity_levels]
         return {
-            "pddi_id": get_pddi_detected_id(self),
+            "pddi_id": get_pddi_id(self.thesaurus.get_thesaurus_version(), self.pddi),
+            "pddi_detected_id": get_pddi_detected_id(self),
             "main_drug": self.main_drug,
             "moc1": self.moc1,
             "between_main_and_plus_drug": self.between_main_and_plus_drug,
@@ -80,7 +81,7 @@ class PDDIdetected:
             return self.moc2
 
     @staticmethod
-    def __get_moc1_and_moc2( moc1: str, moc2: str) -> str:
+    def __get_moc1_and_moc2(moc1: str, moc2: str) -> str:
         moc1_and_moc2 = f"{moc1}(or {moc2})"
         return moc1_and_moc2
 
@@ -99,12 +100,6 @@ class PDDIdetected:
 
     def mol2_belongs_to_main_drug(self, thesaurus_entries2: IThesaurusEntriesFound) -> bool:
         return self.main_drug in thesaurus_entries2.get_drug_classes()
-
-    @classmethod
-    def get_pddi_id(cls, pddi: PDDI):
-        main_entries = [pddi.main_drug, pddi.plus_drug]
-        main_entries = sorted(main_entries)
-        return ";".join(main_entries)
 
     @property
     def main_drug(self):
@@ -131,8 +126,34 @@ class PDDIdetected:
         return self.pddi.description
 
 
+def get_pddi_id(thesaurus_version: str, pddi: PDDI) -> str:
+    """
+    The id is used to remove PDDI duplicates
+    the id is created by concatenating: thesaurus_version;entry1;entry2
+    where entry1 and entry2 are main_drug or plus_drug (sorted alphabetically)
+    :param thesaurus_version:
+    :param pddi:
+    :return: an id for this pddi
+    :rtype: a string
+    """
+    main_entries = [pddi.main_drug, pddi.plus_drug]
+    main_entries = sorted(main_entries)
+    main_entries_id = ";".join(main_entries)
+    pddi_id = thesaurus_version + ";" + main_entries_id
+    return pddi_id
+
+
 def get_pddi_detected_id(pddi_detected: PDDIdetected) -> str:
-    pddi_id = PDDIdetected.get_pddi_id(pddi_detected.pddi)
+    """
+    The id is used to remove PDDI duplicates
+    the id is created by concatenating: pddi_id;moc1;moc2
+    where moc1 and moc2 are molecule or classe (moc) sorted alphabetically
+    :param pddi_detected:
+    :return: an id for this pddi_detected
+    :rtype:
+    """
+    thesaurus_version = pddi_detected.thesaurus.get_thesaurus_version()
+    pddi_id = get_pddi_id(thesaurus_version, pddi_detected.pddi)
     mocs = [pddi_detected.moc1, pddi_detected.moc2]
     mocs = sorted(mocs)
     mocs_id = ";".join(mocs)
