@@ -110,6 +110,13 @@ class MyTestCase(unittest.TestCase):
         pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
         self.assertTrue(len(pddis_detected) == 3)
 
+    def test_as_dict(self):
+        pddi_detector = get_pddi_thesaurus_detector_2019()
+        substance1 = "codeine"
+        substance2 = "codeine"
+        pddis_detected: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        pddis_dict = [pddi_detected.as_dict() for pddi_detected in pddis_detected]
+        self.assertTrue(len(pddis_dict) == 3)
 
 if __name__ == '__main__':
     unittest.main()

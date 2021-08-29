@@ -1,3 +1,5 @@
+from typing import Dict
+
 from pddiansm.pydantic.interfaces_pddi import PDDI
 from pddiansm.thesaurus import IThesaurusEntriesFound
 from pddiansm.thesaurus.IThesaurus import IThesaurus
@@ -44,7 +46,11 @@ class PDDIdetected:
     def __hash__(self):
         return hash(self.id)
 
-    def get_dict_representation(self):
+    def as_dict(self) -> Dict:
+        """Get a dictionary representation of the PDDI detected between 2 molecules or classes searched"
+        :return: dictionary containing information on the PDDI and the searched strings
+        :rtype: a dictionary
+        """
         severity_levels = [{"level": severity_info.level,
                             "info": severity_info.info}
                            for severity_info in self.severity_levels]

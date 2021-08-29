@@ -1,3 +1,5 @@
+from typing import Dict
+
 from pddiansm.detected.PDDIdetected import PDDIdetected
 from pddiansm.pydantic.interfaces_input import SimpleDrug
 
@@ -14,12 +16,16 @@ class PDDIsimpleDrugsDetected:
         self.drug1: SimpleDrug = drug1
         self.drug2: SimpleDrug = drug2
 
-    def get_dict_representation(self):
-        return {
-            "drug_id_1": self.drug1.id,
-            "drug_id_2": self.drug2.id,
-            "pddi": self.pddi_detected.get_dict_representation_pddi()
-        }
+    def as_dict(self) -> Dict:
+        """
+        Get a dictionary representation of the PDDI detected between two simple drugs
+        :return: Information about the PDDIdetected and drug_id_1 / drug_id_2
+        :rtype: a dictionary
+        """
+        dict_simple_drugs = self.pddi_detected.as_dict()
+        dict_simple_drugs["drug_id_1"] = self.drug1.id
+        dict_simple_drugs["drug_id_2"] = self.drug2.id
+        return dict_simple_drugs
 
     def __str__(self):
         print_pddi_detected = self.pddi_detected.__str__()
