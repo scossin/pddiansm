@@ -30,6 +30,16 @@ class MyTestCase(unittest.TestCase):
         self.assertNotEqual(pddi1, None)
         self.assertNotEqual(pddi0, pddi1)
 
+    def test_detection_if_not_symmetric(self):
+        # test fails because information is not symmetric in the thesaurus
+        pddi_detector = get_pddi_thesaurus_detector_2019()
+        substance1 = "dipyridamole"
+        substance2 = "theine"
+        pddi: PDDI = pddi_detector._search_pddi_in_index(substance1, substance2)
+        self.assertTrue(pddi is not None)  # true
+        pddi: PDDI = pddi_detector._search_pddi_in_index(substance2, substance1)
+        self.assertTrue(pddi is not None)  # false
+
     def test_detection_substance_classe(self):
         pddi_detector = get_pddi_thesaurus_detector_2019()
         substance1 = "abatacept"
