@@ -20,13 +20,15 @@ def get_pddi_thesaurus_detector_2019():
 
 
 class MyTestCase(unittest.TestCase):
-    def test_detection_commutativity(self):
+    def test_detection_not_commutative(self):
         pddi_detector = get_pddi_thesaurus_detector_2019()
-        molecule = "ABATACEPT"
-        classe = "ANTI-TNF ALPHA"
+        molecule = "abatacept"
+        classe = "anti-tnf alpha"
         pddi0: PDDI = pddi_detector._search_pddi_in_index(molecule, classe)
         pddi1: PDDI = pddi_detector._search_pddi_in_index(classe, molecule)
-        self.assertEqual(pddi0, pddi1)
+        self.assertNotEqual(pddi0, None)
+        self.assertNotEqual(pddi1, None)
+        self.assertNotEqual(pddi0, pddi1)
 
     def test_detection_substance_classe(self):
         pddi_detector = get_pddi_thesaurus_detector_2019()
