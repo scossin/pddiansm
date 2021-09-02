@@ -59,7 +59,8 @@ class MyTestCase(unittest.TestCase):
         simple_drugs = [simple_drug1, simple_drug2]
         thesaurus: IThesaurus = ThesauriJson().get_thesaurus("2019_09")
         pddi_detector = PDDIsimpleDrugsDetector(thesaurus)
-        pddis_detected = pddi_detector.detect_pddi_multiple_drugs(simple_drugs)
+        pddis_detected: List[PDDIsimpleDrugsDetected] = pddi_detector.detect_pddi_multiple_drugs(simple_drugs)
+        [pddi_detected.as_dict() for pddi_detected in pddis_detected]
         self.assertTrue(len(pddis_detected), 1)
 
 

@@ -24,7 +24,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='pddiansm',
-    version='0.1.1',
+    version='0.2.0',
     description='A package to detect potential drug drug interactions (PDDIs) according to the French National Agency for the Medicines and Health Products Safety (ANSM) guidelines',
     long_description=readme,
     long_description_content_type='text/markdown',
