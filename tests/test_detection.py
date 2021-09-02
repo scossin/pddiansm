@@ -40,6 +40,16 @@ class MyTestCase(unittest.TestCase):
         pddi: PDDI = pddi_detector._search_pddi_in_index(substance2, substance1)
         self.assertTrue(pddi is not None)  # false
 
+    def test_detection_substance_not_in_index(self):
+        # test fails because theine is not in the index of substance (and information must be symmetric)
+        pddi_detector = get_pddi_thesaurus_detector_2019()
+        substance1 = "dipyridamole"
+        substance2 = "theine"
+        pddis_order1: List[PDDIdetected] = pddi_detector.detect_pddi(substance1, substance2)
+        pddis_order2: List[PDDIdetected] = pddi_detector.detect_pddi(substance2, substance1)
+        self.assertTrue(len(pddis_order1) == 1)
+        self.assertTrue(len(pddis_order2) == 1)
+
     def test_detection_substance_classe(self):
         pddi_detector = get_pddi_thesaurus_detector_2019()
         substance1 = "abatacept"
