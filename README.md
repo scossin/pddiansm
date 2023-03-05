@@ -14,3 +14,6 @@ Run all the tests with this command:
 ```bash
 python -m unittest discover ./
 ```
+
+## Acknowledgments
+This repository is part of the DRUGS-SAFER research program, funded by the French Medicines Agency (Agence Nationale de Sécurité du Médicament et des Produits de Santé, ANSM). This work represents the views of the authors and does not necessarily represent the opinion of the French Medicines Agency.
